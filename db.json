@@ -1,0 +1,74 @@
+{
+  "users": [
+    {
+      "id": 1782553699634,
+      "name": "Node Explorer",
+      "email": "node@adyapan.ai",
+      "phone": "9876543210",
+      "college": "Node State University",
+      "branch": "Backend Engineering",
+      "year": "4",
+      "password": "nodesecretpassword",
+      "profile": {
+        "skills": "",
+        "careerGoal": "Software Engineer",
+        "linkedin": "",
+        "github": "",
+        "resume": {
+          "filename": "Yarakala bhargavi-1.pdf",
+          "filenameOnDisk": "resume-1782553809658-549281322.pdf",
+          "path": "C:\\Users\\ashis\\OneDrive\\Desktop\\Adyapan\\uploads\\resume-1782553809658-549281322.pdf",
+          "size": 285798
+        }
+      },
+      "stats": {
+        "notesGenerated": 0,
+        "resumeScore": 66,
+        "interviewsCompleted": 0,
+        "careerProgress": 30
+      },
+      "activities": [
+        {
+          "id": 1782553809688,
+          "title": "Uploaded Resume: Yarakala bhargavi-1.pdf",
+          "time": "Just now"
+        },
+        {
+          "id": 1,
+          "title": "Created account details",
+          "time": "Just now"
+        }
+      ]
+    },
+    {
+      "id": 1782556018275,
+      "name": "Node Explorer",
+      "email": "node@adyapan.com",
+      "phone": "9847871498",
+      "college": "Node State University",
+      "branch": "Backend Engineering",
+      "year": "1",
+      "password": "asdfghjkl",
+      "profile": {
+        "skills": "",
+        "careerGoal": "Software Engineer",
+        "linkedin": "",
+        "github": "",
+        "resume": null
+      },
+      "stats": {
+        "notesGenerated": 0,
+        "resumeScore": 0,
+        "interviewsCompleted": 0,
+        "careerProgress": 30
+      },
+      "activities": [
+        {
+          "id": 1,
+          "title": "Created account details",
+          "time": "Just now"
+        }
+      ]
+    }
+  ]
+}

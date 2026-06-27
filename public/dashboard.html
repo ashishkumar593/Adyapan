@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Adyapan AI</title>
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link class="page-css" rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div style="height: 30px;"></div>
+        <div class="sidebar-close"><i class="fas fa-times"></i></div>
+      </div>
+
+      <nav style="flex-grow: 1;">
+        <ul class="sidebar-menu">
+          <li class="sidebar-item active">
+            <a href="/dashboard"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="coming-soon-trigger"><i class="fas fa-book-open"></i> <span>Study Assistant</span></a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="coming-soon-trigger"><i class="fas fa-compass"></i> <span>Career Guide</span></a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="coming-soon-trigger"><i class="fas fa-file-invoice"></i> <span>Resume Builder</span></a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="coming-soon-trigger"><i class="fas fa-microphone"></i> <span>Interview Coach</span></a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="coming-soon-trigger"><i class="fas fa-briefcase"></i> <span>Internship Assistant</span></a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" class="coming-soon-trigger"><i class="fas fa-network-wired"></i> <span>Placement Hub</span></a>
+          </li>
+          <li class="sidebar-item" style="margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+            <a href="/profile"><i class="fas fa-user-cog"></i> <span>Profile Settings</span></a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="/" id="logout-btn" style="display: flex; align-items: center; gap: 0.8rem; color: var(--text-secondary); font-weight: 600;">
+          <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Permanent Sidebar Logo & Toggle -->
+    <a href="/" class="sidebar-logo">
+      <img src="assets/logo.png" alt="Adyapan AI Logo" style="height: 30px;">
+      <span>Adyapan AI</span>
+    </a>
+    <button class="menu-toggle" aria-label="Toggle Sidebar"><i class="fas fa-bars"></i></button>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- Top Header -->
+      <div class="dashboard-header">
+        
+        <div class="user-welcome">
+          <h1 id="welcome-name">Welcome back, John! 👋</h1>
+          <p>Here is an overview of your progress and tools.</p>
+        </div>
+
+        <div class="dashboard-actions">
+          <button class="theme-toggle-btn" aria-label="Toggle Theme">
+            <i class="fas fa-sun"></i>
+          </button>
+          <div class="glass" style="padding: 0.6rem 1.2rem; font-size: 0.9rem; font-weight: 700; border-radius: 12px; display: flex; align-items: center; gap: 6px; color: var(--primary);">
+            <i class="fas fa-bullseye"></i> Software Engineer
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="dashboard-grid">
+        <!-- Card 1 -->
+        <div class="widget-card glass">
+          <div class="widget-header">
+            <div class="widget-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--primary);">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <span class="widget-trend trend-up"><i class="fas fa-caret-up"></i> +12%</span>
+          </div>
+          <div class="widget-value" id="notes-generated-val" data-target="12">0</div>
+          <div class="widget-label">Notes Generated</div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="widget-card glass">
+          <div class="widget-header">
+            <div class="widget-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+              <i class="fas fa-star"></i>
+            </div>
+            <span class="widget-trend trend-up"><i class="fas fa-caret-up"></i> +4%</span>
+          </div>
+          <div class="widget-value" id="resume-score-val" data-target="78">0%</div>
+          <div class="widget-label">Resume Score</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="widget-card glass">
+          <div class="widget-header">
+            <div class="widget-icon" style="background: rgba(139, 92, 246, 0.1); color: var(--secondary);">
+              <i class="fas fa-video"></i>
+            </div>
+            <span class="widget-trend trend-up"><i class="fas fa-check"></i> Finished</span>
+          </div>
+          <div class="widget-value">3</div>
+          <div class="widget-label">Interviews Completed</div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="widget-card glass">
+          <div class="widget-header">
+            <div class="widget-icon" style="background: rgba(6, 182, 212, 0.1); color: var(--cyan);">
+              <i class="fas fa-route"></i>
+            </div>
+            <span class="widget-trend trend-up"><i class="fas fa-caret-up"></i> Active</span>
+          </div>
+          <div class="widget-value">85%</div>
+          <div class="widget-label">Career Progress</div>
+        </div>
+      </div>
+
+      <!-- Main Panels Layout -->
+      <div class="panel-grid">
+        
+        <!-- Left Side: AI Tool Cards -->
+        <div class="panel-card glass">
+          <h2 class="panel-title">AI Core Suites</h2>
+          <div class="tools-grid">
+            <!-- Tool Item 1 -->
+            <div class="tool-item glass">
+              <div class="tool-item-header">
+                <h3>Study Assistant</h3>
+                <span class="badge-soon">Coming Soon</span>
+              </div>
+              <p>Prepare university summaries, resolve textbook questions instantly, and create customized revision planners.</p>
+              <a href="#" class="tool-btn">Access Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Tool Item 2 -->
+            <div class="tool-item glass">
+              <div class="tool-item-header">
+                <h3>Career Guide</h3>
+                <span class="badge-soon">Coming Soon</span>
+              </div>
+              <p>Establish tech roadmaps, identify skill gaps, and explore suggested coding project repositories.</p>
+              <a href="#" class="tool-btn">Access Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Tool Item 3 -->
+            <div class="tool-item glass">
+              <div class="tool-item-header">
+                <h3>Resume Builder</h3>
+                <span class="badge-soon">Coming Soon</span>
+              </div>
+              <p>Construct clean professional ATS templates. Grade content and tailor bullets for target job cards.</p>
+              <a href="#" class="tool-btn">Access Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Tool Item 4 -->
+            <div class="tool-item glass">
+              <div class="tool-item-header">
+                <h3>Interview Coach</h3>
+                <span class="badge-soon">Coming Soon</span>
+              </div>
+              <p>Conduct mock video practices. Receive grading on question-accuracy, coding speed, and volume dynamics.</p>
+              <a href="#" class="tool-btn">Access Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Progress & Recent Activity -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          
+          <!-- Profile Completion Card -->
+          <div class="panel-card glass">
+            <h2 class="panel-title">Profile Completion</h2>
+            <div class="progress-bar-linear">
+              <div class="progress-fill-linear" style="width: 75%;"></div>
+            </div>
+            <div class="progress-info" style="margin-bottom: 1.5rem;">
+              <span>75% Completed</span>
+              <span>25% to go</span>
+            </div>
+            <a href="/profile" class="btn btn-secondary" style="width: 100%; border-radius: 12px; font-size: 0.9rem; padding: 0.7rem 1.5rem;">Complete Profile</a>
+          </div>
+
+          <!-- Recent Activity Card -->
+          <div class="panel-card glass">
+            <h2 class="panel-title">Recent Activity</h2>
+            <div class="activity-list">
+              <!-- Item 1 -->
+              <div class="activity-item">
+                <div class="activity-dot"></div>
+                <div class="activity-details">
+                  <p>Uploaded Resume: John_Doe_Resume_v2.pdf</p>
+                  <div class="activity-time">2 hours ago</div>
+                </div>
+              </div>
+              <!-- Item 2 -->
+              <div class="activity-item">
+                <div class="activity-dot" style="background: var(--secondary); box-shadow: 0 0 8px var(--secondary);"></div>
+                <div class="activity-details">
+                  <p>Completed Data Structures Mock Interview</p>
+                  <div class="activity-time">Yesterday</div>
+                </div>
+              </div>
+              <!-- Item 3 -->
+              <div class="activity-item">
+                <div class="activity-dot" style="background: var(--cyan); box-shadow: 0 0 8px var(--cyan);"></div>
+                <div class="activity-details">
+                  <p>Asked Study Assistant about React Hooks</p>
+                  <div class="activity-time">2 days ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/dashboard.js"></script>
+  <script>
+    // Custom dynamic greeting from storage
+    const storedName = localStorage.getItem('userName');
+    if (storedName) {
+      document.getElementById('welcome-name').innerText = `Welcome back, ${storedName}! 👋`;
+    }
+
+    // Connect trigger for Coming Soon notification alerts
+    document.querySelectorAll('.coming-soon-trigger').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (typeof showNotification === 'function') {
+          showNotification(`${item.innerText.trim()} will be available in the upcoming release! 🚀`);
+        }
+      });
+    });
+
+    // Logout cleanup
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.clear();
+    });
+  </script>
+</body>
+</html>

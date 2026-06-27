@@ -1,0 +1,460 @@
+/* Dashboard Layout */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-dark);
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: var(--glass-bg);
+  border-right: 1px solid var(--border-color);
+  backdrop-filter: var(--glass-blur);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0.7rem 2rem 0.3rem;
+  z-index: 99;
+  transition: var(--transition);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.sidebar-logo {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  letter-spacing: -0.3px;
+  text-decoration: none;
+  position: fixed;
+  top: 1rem;
+  left: 0.7rem;
+  z-index: 101;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar-logo span {
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  color: #ffffff;
+}
+
+.sidebar-logo img {
+  height: 26px;
+  width: auto;
+  object-fit: contain;
+}
+
+.sidebar-close {
+  display: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.sidebar-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.sidebar-item a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 0.6rem 0.9rem 0.4rem;
+  border-radius: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.sidebar-item a i {
+  font-size: 1.1rem;
+  transition: var(--transition);
+}
+
+.sidebar-item a:hover,
+.sidebar-item.active a {
+  color: var(--text-primary);
+  background: var(--bg-card-hover);
+}
+
+.sidebar-item.active a {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+  color: var(--primary);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+}
+
+#logout-btn {
+  padding-left: 0.4rem;
+  transition: var(--transition);
+}
+
+#logout-btn:hover {
+  color: var(--text-primary) !important;
+}
+
+/* Main Dashboard Area */
+.main-content {
+  flex-grow: 1;
+  margin-left: 280px;
+  padding: 2.5rem;
+  min-height: 100vh;
+  transition: var(--transition);
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.user-welcome h1 {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.user-welcome p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.dashboard-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Quick Info Widgets */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.widget-card {
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.widget-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.widget-trend {
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.trend-up {
+  color: #10b981;
+}
+
+.trend-down {
+  color: #ef4444;
+}
+
+.widget-value {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.3rem;
+}
+
+.widget-label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Progress Section Layout */
+.panel-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.panel-card {
+  padding: 2rem;
+}
+
+.panel-title {
+  font-family: var(--font-title);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Coming Soon Badge */
+.badge-soon {
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(139, 92, 246, 0.15);
+  color: var(--secondary);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  padding: 0.2rem 0.6rem;
+  border-radius: 50px;
+  text-transform: uppercase;
+}
+
+/* Tools Grid */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+}
+
+.tool-item {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.tool-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.2rem;
+}
+
+.tool-item h3 {
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.tool-item p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: 1.2rem;
+}
+
+.tool-btn {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: auto;
+}
+
+/* Linear & Circular Progress Bar */
+.progress-bar-linear {
+  height: 8px;
+  width: 100%;
+  background: var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.progress-fill-linear {
+  height: 100%;
+  background: var(--gradient-main);
+  border-radius: 4px;
+  transition: width 1s ease-in-out;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Activity Items */
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.activity-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.activity-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+  margin-top: 5px;
+}
+
+.activity-details p {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.activity-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Sidebar Under-Logo Toggle Button */
+.menu-toggle {
+  position: fixed;
+  top: 4rem;
+  /* sits right under the logo which starts at 1rem */
+  left: 0.2rem;
+  z-index: 101;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+.menu-toggle:hover {
+  color: var(--primary);
+}
+
+/* Desktop Collapsed Sidebar (Mini-Sidebar State) */
+@media (min-width: 769px) {
+  .dashboard-layout.collapsed .sidebar {
+    width: 80px;
+    padding: 2rem 0.5rem;
+  }
+
+  .dashboard-layout.collapsed .sidebar-logo {
+    left: 25px;
+  }
+
+  .dashboard-layout.collapsed .sidebar-logo span {
+    display: none;
+  }
+
+  .dashboard-layout.collapsed .sidebar-menu span,
+  .dashboard-layout.collapsed .sidebar-footer span {
+    display: none;
+  }
+
+  .dashboard-layout.collapsed .sidebar-item a {
+    justify-content: center;
+    padding: 0.9rem 0;
+  }
+
+  .dashboard-layout.collapsed .sidebar-footer a {
+    justify-content: center;
+    padding: 0.9rem 0;
+  }
+
+  .dashboard-layout.collapsed .main-content {
+    margin-left: 80px;
+  }
+
+  .dashboard-layout.collapsed .menu-toggle {
+    left: 25px;
+    /* centers under the logo icon when sidebar is narrow */
+  }
+}
+
+/* Responsive adjustments for Dashboard */
+@media (max-width: 1024px) {
+  .panel-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .sidebar-logo {
+    position: fixed;
+    transform: translateX(-100%);
+    z-index: 101;
+  }
+
+  .sidebar.active~.sidebar-logo {
+    transform: translateX(0);
+  }
+
+  .sidebar-close {
+    display: block;
+  }
+
+  .menu-toggle {
+    display: block;
+    margin-left: 0 !important;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 1.5rem;
+  }
+
+  .dashboard-header {
+    margin-top: 1rem;
+  }
+
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+}

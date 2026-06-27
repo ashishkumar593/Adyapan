@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Adyapan AI</title>
+  <!-- FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Specific styling for auth split pages */
+    .auth-page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      background-color: var(--bg-dark);
+      overflow: hidden;
+    }
+
+    .auth-left {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.15));
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .auth-left::before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(245, 158, 11, 0.1);
+      filter: blur(100px);
+      border-radius: 50%;
+      top: 15%;
+      left: 15%;
+    }
+
+    .auth-left-content {
+      max-width: 450px;
+      z-index: 2;
+    }
+
+    .auth-illustration-container {
+      width: 100%;
+      max-width: 350px;
+      aspect-ratio: 1.2;
+      border-radius: 24px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-glow);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .auth-illustration-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .auth-left h2 {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .auth-left p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+    }
+
+    .auth-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem 2rem;
+      position: relative;
+    }
+
+    .auth-right-container {
+      width: 100%;
+      max-width: 440px;
+      padding: 2.5rem;
+      transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .auth-right-container.register-mode {
+      max-width: 580px;
+    }
+
+    /* Tabs styling */
+    .auth-tabs {
+      display: flex;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 0.3rem;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 0.75rem;
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border-radius: 9px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .auth-tab.active {
+      background: var(--primary);
+      color: #000000;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+
+    /* Register Form Grid Layout */
+    #register-form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+    }
+
+    #register-form .form-group.full-width {
+      grid-column: span 2;
+    }
+
+    select.auth-input {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='rgba(255,255,255,0.6)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1.2rem center;
+      background-size: 1.1rem;
+    }
+
+    [data-theme="light"] select.auth-input {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='rgba(15,23,42,0.6)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    }
+
+    #register-form .auth-submit-btn {
+      grid-column: span 2;
+    }
+
+    #register-form .auth-footer {
+      grid-column: span 2;
+    }
+
+    .auth-header {
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    .auth-header h1 {
+      font-family: var(--font-title);
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .auth-header p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 1.2rem;
+      color: var(--text-muted);
+    }
+
+    .auth-input {
+      width: 100%;
+      padding: 0.9rem 1.2rem 0.9rem 2.8rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .auth-input:focus {
+      border-color: var(--primary);
+      background: var(--bg-card-hover);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+    }
+
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      color: var(--text-secondary);
+    }
+
+    .remember-me input {
+      accent-color: var(--primary);
+    }
+
+    .forgot-link {
+      color: var(--primary);
+    }
+
+    .auth-submit-btn {
+      width: 100%;
+      padding: 0.95rem;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-top: 0.8rem;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      flex-grow: 1;
+      height: 1px;
+      background-color: var(--border-color);
+    }
+
+    .google-btn {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .google-btn:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .google-btn i {
+      color: #ea4335; /* Google Red */
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 2.5rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .auth-footer a {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Auth Float Logo */
+    .auth-logo-float {
+      position: absolute;
+      top: 2.5rem;
+      left: 2.5rem;
+      z-index: 10;
+    }
+
+    /* Responsive Auth Layout */
+    @media (max-width: 900px) {
+      .auth-page {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-left {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Back Logo -->
+  <div class="auth-logo-float">
+    <a href="/" class="logo">
+      <img src="assets/logo.png" alt="Adyapan AI Logo">
+      <span class="text-gradient">Adyapan AI</span>
+    </a>
+  </div>
+
+  <div class="auth-page">
+    
+    <!-- Left Section -->
+    <div class="auth-left">
+      <div class="auth-left-content" id="auth-left-login">
+        <div class="auth-illustration-container">
+          <img src="assets/background.jpg" alt="Background graphic">
+        </div>
+        <h2>Unlock Your Potential</h2>
+        <p>Log in to access your customized academic tools, track resume improvements, and practice for interviews.</p>
+      </div>
+      <div class="auth-left-content" id="auth-left-register" style="display: none;">
+        <div class="auth-illustration-container">
+          <img src="assets/background.jpg" alt="Background graphic">
+        </div>
+        <h2>Accelerate Your Career</h2>
+        <p>Join thousands of students building their futures. Sync dashboard progress, draft top-scoring resumes, and practice mock technical interviews.</p>
+      </div>
+    </div>
+
+    <!-- Right Section -->
+    <div class="auth-right">
+      <div class="auth-right-container glass" id="auth-container">
+        
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="tab-login">Sign In</button>
+          <button class="auth-tab" id="tab-register">Register</button>
+        </div>
+
+        <!-- Login Header -->
+        <div class="auth-header" id="login-header">
+          <h1>Welcome Back</h1>
+          <p>Login to resume your Adyapan journey</p>
+        </div>
+
+        <!-- Register Header (Hidden by default) -->
+        <div class="auth-header" id="register-header" style="display: none;">
+          <h1>Create an Account</h1>
+          <p>Sign up now to start learning with AI</p>
+        </div>
+
+        <!-- Login Form -->
+        <form class="auth-form" id="login-form">
+          <!-- Email -->
+          <div class="form-group">
+            <label for="login-email">Email Address</label>
+            <div class="input-wrapper">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="login-email" class="auth-input" placeholder="you@university.edu" required>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="login-password" class="auth-input" placeholder="••••••••" required>
+            </div>
+          </div>
+
+          <!-- Options -->
+          <div class="form-options">
+            <label class="remember-me">
+              <input type="checkbox"> Remember me
+            </label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn btn-primary auth-submit-btn">Login <i class="fas fa-sign-in-alt"></i></button>
+
+          <div class="divider">Or login with</div>
+
+          <!-- Google button -->
+          <button type="button" class="google-btn">
+            <i class="fab fa-google"></i> Continue with Google
+          </button>
+
+          <div class="auth-footer">
+            Don't have an account? <a href="#" id="link-to-register">Register here</a>
+          </div>
+        </form>
+
+        <!-- Register Form (Hidden by default) -->
+        <form class="auth-form" id="register-form" style="display: none;">
+          <!-- Full Name -->
+          <div class="form-group">
+            <label for="register-name">Full Name</label>
+            <div class="input-wrapper">
+              <i class="fas fa-user"></i>
+              <input type="text" id="register-name" class="auth-input" placeholder="John Doe" required>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="register-email">Email Address</label>
+            <div class="input-wrapper">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="register-email" class="auth-input" placeholder="john.doe@college.edu" required>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="form-group">
+            <label for="register-phone">Phone Number</label>
+            <div class="input-wrapper">
+              <i class="fas fa-phone"></i>
+              <input type="tel" id="register-phone" class="auth-input" placeholder="9876543210" required>
+            </div>
+          </div>
+
+          <!-- College -->
+          <div class="form-group">
+            <label for="register-college">College/University</label>
+            <div class="input-wrapper">
+              <i class="fas fa-university"></i>
+              <input type="text" id="register-college" class="auth-input" placeholder="State University" required>
+            </div>
+          </div>
+
+          <!-- Branch -->
+          <div class="form-group">
+            <label for="register-branch">Branch/Specialization</label>
+            <div class="input-wrapper">
+              <i class="fas fa-graduation-cap"></i>
+              <input type="text" id="register-branch" class="auth-input" placeholder="Computer Science" required>
+            </div>
+          </div>
+
+          <!-- Year -->
+          <div class="form-group">
+            <label for="register-year">Academic Year</label>
+            <div class="input-wrapper">
+              <i class="fas fa-calendar"></i>
+              <select id="register-year" class="auth-input" required>
+                <option value="" disabled selected>Select Year</option>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option value="4">4th Year</option>
+                <option value="Graduated">Graduated</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="register-password">Password</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="register-password" class="auth-input" placeholder="••••••••" required>
+            </div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="form-group">
+            <label for="register-confirm-password">Confirm Password</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="register-confirm-password" class="auth-input" placeholder="••••••••" required>
+            </div>
+          </div>
+
+          <!-- Error Message placeholder -->
+          <div class="form-group full-width" id="register-error-msg" style="color: #ef4444; font-size: 0.85rem; font-weight: 600; display: none;"></div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn btn-primary auth-submit-btn">Create Account <i class="fas fa-user-plus"></i></button>
+
+          <div class="auth-footer">
+            Already have an account? <a href="#" id="link-to-login">Sign in</a>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script>
+    // Tab switching elements
+    const tabLogin = document.getElementById('tab-login');
+    const tabRegister = document.getElementById('tab-register');
+    const authContainer = document.getElementById('auth-container');
+
+    const loginHeader = document.getElementById('login-header');
+    const registerHeader = document.getElementById('register-header');
+
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+
+    const leftLogin = document.getElementById('auth-left-login');
+    const leftRegister = document.getElementById('auth-left-register');
+
+    const linkToRegister = document.getElementById('link-to-register');
+    const linkToLogin = document.getElementById('link-to-login');
+
+    const showLogin = (e) => {
+      if (e) e.preventDefault();
+      tabLogin.classList.add('active');
+      tabRegister.classList.remove('active');
+      authContainer.classList.remove('register-mode');
+
+      loginHeader.style.display = 'block';
+      registerHeader.style.display = 'none';
+
+      loginForm.style.display = 'flex';
+      registerForm.style.display = 'none';
+
+      leftLogin.style.display = 'block';
+      leftRegister.style.display = 'none';
+
+      history.pushState(null, '', '/login');
+    };
+
+    const showRegister = (e) => {
+      if (e) e.preventDefault();
+      tabLogin.classList.remove('active');
+      tabRegister.classList.add('active');
+      authContainer.classList.add('register-mode');
+
+      loginHeader.style.display = 'none';
+      registerHeader.style.display = 'block';
+
+      loginForm.style.display = 'none';
+      registerForm.style.display = 'grid';
+
+      leftLogin.style.display = 'none';
+      leftRegister.style.display = 'block';
+
+      history.pushState(null, '', '/register');
+    };
+
+    // Event listeners
+    tabLogin.addEventListener('click', showLogin);
+    tabRegister.addEventListener('click', showRegister);
+    linkToRegister.addEventListener('click', showRegister);
+    linkToLogin.addEventListener('click', showLogin);
+
+    // Initial state check based on the URL path
+    if (window.location.pathname === '/register') {
+      showRegister();
+    } else {
+      showLogin();
+    }
+
+    // Login Form Submit
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          alert(`Login Failed: ${data.error}`);
+          return;
+        }
+        localStorage.setItem('userEmail', data.email);
+        localStorage.setItem('userName', data.name);
+        window.location.href = '/dashboard';
+      })
+      .catch(err => {
+        console.error('Error logging in:', err);
+        alert('Server connection failed. Try again.');
+      });
+    });
+
+    // Register Form Submit
+    registerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('register-name').value;
+      const email = document.getElementById('register-email').value;
+      const phone = document.getElementById('register-phone').value;
+      const college = document.getElementById('register-college').value;
+      const branch = document.getElementById('register-branch').value;
+      const year = document.getElementById('register-year').value;
+      const password = document.getElementById('register-password').value;
+      const confirmPassword = document.getElementById('register-confirm-password').value;
+      const errorMsg = document.getElementById('register-error-msg');
+
+      if (password !== confirmPassword) {
+        errorMsg.innerText = "Passwords do not match!";
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      errorMsg.style.display = 'none';
+
+      const payload = { name, email, phone, college, branch, year, password };
+
+      fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          errorMsg.innerText = data.error;
+          errorMsg.style.display = 'block';
+          return;
+        }
+
+        // Store user credentials
+        localStorage.setItem('userName', name);
+        localStorage.setItem('userEmail', email);
+
+        window.location.href = '/dashboard';
+      })
+      .catch(err => {
+        console.error('Error registering:', err);
+        errorMsg.innerText = "Connection error. Failed to register.";
+        errorMsg.style.display = 'block';
+      });
+    });
+  </script>
+</body>
+</html>
