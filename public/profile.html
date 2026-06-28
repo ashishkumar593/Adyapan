@@ -8,17 +8,62 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/dashboard.css?v=2">
   <link rel="stylesheet" href="css/profile.css">
 </head>
 <body>
 
   <div class="dashboard-layout">
     
+    <!-- Top Navbar -->
+    <header class="dashboard-top-nav">
+      <div class="top-nav-left">
+        <a href="/" class="dashboard-logo">
+          <img src="assets/logo.png" alt="Adyapan AI Logo">
+          <span>Adyapan AI</span>
+        </a>
+        <div class="search-bar-wrapper">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" placeholder="Search courses, tools...">
+        </div>
+      </div>
+
+      <div class="top-nav-center">
+        <button class="top-nav-btn btn-evaluate"><i class="fas fa-wand-magic-sparkles"></i> Evaluate</button>
+        <button class="top-nav-btn btn-interview"><i class="far fa-file-alt"></i> Interview Qs</button>
+        <button class="top-nav-btn btn-get-plus"><i class="fas fa-crown"></i> Get Plus</button>
+        <button class="top-nav-btn btn-square"><i class="fas fa-globe"></i></button>
+        
+        <span class="nav-divider"></span>
+        
+        <a href="#" class="top-nav-link coming-soon-trigger">Work & Learn <span class="badge-super">SUPER 30</span></a>
+        <a href="#" class="top-nav-link coming-soon-trigger">Workshops</a>
+        <a href="#" class="top-nav-link coming-soon-trigger">Consultancy</a>
+      </div>
+
+      <div class="top-nav-right">
+        <button class="theme-toggle-btn" aria-label="Toggle Theme">
+          <i class="fas fa-sun"></i>
+        </button>
+        <div class="notification-wrapper coming-soon-trigger" style="display: flex; align-items: center; gap: 4px;">
+          <i class="far fa-bell"></i>
+          <span class="notification-badge">10</span>
+        </div>
+        <div class="user-profile-wrapper">
+          <div class="user-profile-btn">
+            <i class="far fa-user-circle"></i>
+          </div>
+          <div class="profile-dropdown glass">
+            <a href="/profile"><i class="fas fa-user-cog"></i> Profile Settings</a>
+            <a href="/" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
     <!-- Sidebar -->
     <aside class="sidebar">
-      <div class="sidebar-header">
-        <div style="height: 30px;"></div>
+      <div class="sidebar-header" style="margin-bottom: 0;">
         <div class="sidebar-close"><i class="fas fa-times"></i></div>
       </div>
 
@@ -45,25 +90,9 @@
           <li class="sidebar-item">
             <a href="#" class="coming-soon-trigger"><i class="fas fa-network-wired"></i> <span>Placement Hub</span></a>
           </li>
-          <li class="sidebar-item active" style="margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
-            <a href="/profile"><i class="fas fa-user-cog"></i> <span>Profile Settings</span></a>
-          </li>
         </ul>
       </nav>
-
-      <div class="sidebar-footer">
-        <a href="/" id="logout-btn" style="display: flex; align-items: center; gap: 0.8rem; color: var(--text-secondary); font-weight: 600;">
-          <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
-        </a>
-      </div>
     </aside>
-
-    <!-- Permanent Sidebar Logo & Toggle -->
-    <a href="/" class="sidebar-logo">
-      <img src="assets/logo.png" alt="Adyapan AI Logo" style="height: 30px;">
-      <span>Adyapan AI</span>
-    </a>
-    <button class="menu-toggle" aria-label="Toggle Sidebar"><i class="fas fa-bars"></i></button>
 
     <!-- Main Content Area -->
     <main class="main-content">
@@ -74,12 +103,6 @@
         <div class="user-welcome">
           <h1>Profile Settings</h1>
           <p>Manage your account credentials, target goal, and resume files.</p>
-        </div>
-
-        <div class="dashboard-actions">
-          <button class="theme-toggle-btn" aria-label="Toggle Theme">
-            <i class="fas fa-sun"></i>
-          </button>
         </div>
       </div>
 

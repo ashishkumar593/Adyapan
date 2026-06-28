@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTestimonialSlider();
   initSmoothScroll();
   initHeroAnimation();
+  initExploreTools();
 });
 
 // 1. Theme Toggle Management
@@ -243,5 +244,19 @@ function initHeroAnimation() {
     glow2.style.transform = 'translate(0, 0)';
     hero.style.setProperty('--mouse-x', '50%');
     hero.style.setProperty('--mouse-y', '50%');
+  });
+}
+
+// 8. Explore Tools Authentication Check
+function initExploreTools() {
+  const exploreLinks = document.querySelectorAll('.feature-link, a[href="/dashboard"]');
+  exploreLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const userEmail = localStorage.getItem('userEmail');
+      if (!userEmail) {
+        e.preventDefault();
+        window.location.href = '/login';
+      }
+    });
   });
 }

@@ -69,6 +69,36 @@
           "time": "Just now"
         }
       ]
+    },
+    {
+      "id": 1782642383945,
+      "name": "john",
+      "email": "john@gmail.com",
+      "phone": "98872255641",
+      "college": "lpu",
+      "branch": "CSE",
+      "year": "Graduated",
+      "password": "1234567890",
+      "profile": {
+        "skills": "",
+        "careerGoal": "Software Engineer",
+        "linkedin": "",
+        "github": "",
+        "resume": null
+      },
+      "stats": {
+        "notesGenerated": 0,
+        "resumeScore": 0,
+        "interviewsCompleted": 0,
+        "careerProgress": 30
+      },
+      "activities": [
+        {
+          "id": 1,
+          "title": "Created account details",
+          "time": "Just now"
+        }
+      ]
     }
   ]
 }
