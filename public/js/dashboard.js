@@ -25,10 +25,7 @@ function initDashboardTheme() {
 }
 
 function updateToggleIcon(btn, theme) {
-  const icon = btn.querySelector('i');
-  if (icon) {
-    icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
-  }
+  // Icon visibility is handled by CSS [data-theme] selectors on .icon-sun / .icon-moon SVGs
 }
 
 // 2. Collapsible Sidebar
@@ -59,11 +56,25 @@ function initSidebarToggle() {
   // Close mobile sidebar when clicking outside
   document.addEventListener('click', (e) => {
     if (window.innerWidth <= 768 && sidebar && sidebar.classList.contains('active')) {
-      if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+      if (!sidebar.contains(e.target) && (!menuToggle || !menuToggle.contains(e.target))) {
         sidebar.classList.remove('active');
       }
     }
   });
+
+  // Prevent background scroll when hovering over the sidebar on desktop
+  if (sidebar) {
+    sidebar.addEventListener('mouseenter', () => {
+      if (window.innerWidth > 768) {
+        document.body.style.overflow = 'hidden';
+      }
+    });
+    sidebar.addEventListener('mouseleave', () => {
+      if (window.innerWidth > 768) {
+        document.body.style.overflow = '';
+      }
+    });
+  }
 }
 
 // 3. Hydrate Dashboard Stats & Recent Activity from API

@@ -1,0 +1,116 @@
+/* ========================================
+   Mentor Dashboard CSS - Adyapan AI
+   Extends: style.css + dashboard.css + admin.css
+   Accent: Purple/Violet #8b5cf6
+   ======================================== */
+
+/* Mentor Role Badge */
+.role-mentor {
+  background: rgba(139, 92, 246, 0.12);
+  color: #8b5cf6;
+  border: 1px solid rgba(139, 92, 246, 0.25);
+}
+
+/* Mentor action button override */
+.admin-action-btn.mentor-btn {
+  background: #8b5cf6;
+  color: #fff;
+}
+.admin-action-btn.mentor-btn:hover { background: #7c3aed; }
+
+/* Mentor Sections - SPA Nav */
+.mentor-section { display: none; }
+.mentor-section.active-section { display: block; }
+
+/* Quick action icon override for mentor */
+.mentor-section .quick-action-btn i { color: #8b5cf6; }
+.mentor-section .quick-action-btn:hover { border-color: #8b5cf6; background: rgba(139,92,246,0.06); }
+
+/* Rating Summary */
+.rating-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.25rem 0 1rem;
+  text-align: center;
+}
+.big-rating {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+}
+.stars-row { display: flex; gap: 4px; font-size: 1.1rem; color: #f59e0b; }
+
+/* Rating Bars */
+.rating-bars { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.75rem; }
+.rating-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+.rating-bar-row > span:first-child { width: 36px; text-align: right; flex-shrink: 0; }
+.rating-bar-row > span:last-child { width: 20px; flex-shrink: 0; }
+.bar-track {
+  flex: 1;
+  height: 7px;
+  background: var(--border-color);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f59e0b, #f97316);
+  border-radius: 999px;
+  transition: width 0.6s ease;
+}
+
+/* Chat Layout */
+.chat-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  border-radius: 18px;
+  overflow: hidden;
+  min-height: 480px;
+}
+.chat-sidebar {
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.chat-search {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+.chat-search input {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  width: 100%;
+}
+.chat-list { flex: 1; overflow-y: auto; }
+.chat-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chat-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-align: center;
+}
+.chat-placeholder i { font-size: 2.5rem; opacity: 0.3; }

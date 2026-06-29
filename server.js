@@ -86,6 +86,14 @@ app.get('/profile', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'profile.html'));
 });
 
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+app.get('/mentor', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'mentor.html'));
+});
+
 // Backend API Endpoints
 
 // 1. API: Register
@@ -151,7 +159,7 @@ app.post('/api/auth/login', (req, res) => {
     return res.status(401).json({ error: 'Incorrect email or password.' });
   }
 
-  res.json({ message: 'Login successful', email: user.email, name: user.name });
+  res.json({ message: 'Login successful', email: user.email, name: user.name, role: user.role || 'student' });
 });
 
 // 3. API: Get Profile Details

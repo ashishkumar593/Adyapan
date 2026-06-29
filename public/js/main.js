@@ -31,14 +31,7 @@ function initTheme() {
 }
 
 function updateThemeToggleUI(theme) {
-  const themeToggleIcons = document.querySelectorAll('.theme-toggle-btn i');
-  themeToggleIcons.forEach(icon => {
-    if (theme === 'light') {
-      icon.className = 'fas fa-moon';
-    } else {
-      icon.className = 'fas fa-sun';
-    }
-  });
+  // Icon visibility (sun/moon) handled by CSS [data-theme] selectors
 }
 
 // 2. Mobile Nav Toggle
@@ -252,11 +245,8 @@ function initExploreTools() {
   const exploreLinks = document.querySelectorAll('.feature-link, a[href="/dashboard"]');
   exploreLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-      const userEmail = localStorage.getItem('userEmail');
-      if (!userEmail) {
-        e.preventDefault();
-        window.location.href = '/login';
-      }
+      e.preventDefault();
+      window.location.href = '/login';
     });
   });
 }

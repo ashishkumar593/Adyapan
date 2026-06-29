@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentor Dashboard - Adyapan AI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/mentor.css">
+  <script>
+    // Route guard: Redirect non-mentors
+    const role = localStorage.getItem('userRole');
+    if (role === 'admin') {
+      window.location.replace('/admin');
+    } else if (role !== 'mentor') {
+      window.location.replace('/dashboard');
+    }
+  </script>
+</head>
+
+<body>
+
+  <div class="dashboard-layout" id="mentor-layout">
+
+    <!-- Top Navbar -->
+    <header class="dashboard-top-nav">
+      <div class="top-nav-left">
+        <a href="/" class="dashboard-logo">
+          <img src="assets/logo.png" alt="Adyapan AI Logo">
+          <span>Adyapan AI</span>
+        </a>
+        <div class="search-bar-wrapper">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" placeholder="Search students, sessions...">
+        </div>
+      </div>
+
+      <div class="top-nav-center">
+        <span class="role-badge role-mentor"><i class="fas fa-graduation-cap"></i> Mentor Portal</span>
+      </div>
+
+      <div class="top-nav-right">
+        <button class="theme-toggle-btn" aria-label="Toggle Theme">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+        <div class="notification-wrapper" style="display:flex;align-items:center;gap:4px;">
+          <i class="far fa-bell"></i>
+          <span class="notification-badge">0</span>
+        </div>
+        <div class="user-profile-wrapper">
+          <div class="user-profile-btn">
+            <i class="far fa-user-circle"></i>
+          </div>
+          <div class="profile-dropdown glass">
+            <div class="dropdown-user-header">
+              <div class="dropdown-avatar"><i class="fas fa-user"></i></div>
+              <div class="dropdown-user-details">
+                <div class="dropdown-user-name">Mentor Name</div>
+                <div class="dropdown-user-email">mentor@adyapan.ai</div>
+              </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <ul class="dropdown-menu-list">
+              <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
+              <li class="menu-divider"></li>
+              <li><a href="/"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header" style="margin-bottom:0;">
+        <div class="sidebar-close"><i class="fas fa-times"></i></div>
+      </div>
+      <nav style="flex-grow:1;">
+        <ul class="sidebar-menu">
+          <li class="sidebar-item active" data-section="overview">
+            <a href="#overview"><i class="fas fa-chart-pie"></i> <span>Overview</span></a>
+          </li>
+          <li class="sidebar-item" data-section="students">
+            <a href="#students"><i class="fas fa-user-graduate"></i> <span>My Students</span></a>
+          </li>
+          <li class="sidebar-item" data-section="feedback">
+            <a href="#feedback"><i class="fas fa-star"></i> <span>Feedback &amp; Reviews</span></a>
+          </li>
+          <li class="sidebar-item" data-section="performance">
+            <a href="#performance"><i class="fas fa-chart-line"></i> <span>Performance</span></a>
+          </li>
+          <li class="sidebar-item" data-section="messages">
+            <a href="#messages"><i class="fas fa-comments"></i> <span>Messages</span></a>
+          </li>
+          <li class="sidebar-item" data-section="settings">
+            <a href="#settings"><i class="fas fa-cog"></i> <span>Settings</span></a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- ===== OVERVIEW ===== -->
+      <section id="overview" class="mentor-section active-section">
+        <div class="dashboard-header">
+          <div class="user-welcome">
+            <h1>Welcome back, Mentor!</h1>
+            <p>Here's a snapshot of your teaching activity and student progress.</p>
+          </div>
+          <div class="dashboard-actions">
+            <button class="admin-action-btn mentor-btn"><i class="fas fa-calendar-plus"></i> Schedule Session</button>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="dashboard-grid">
+          <div class="widget-card glass">
+            <div class="widget-header">
+              <div class="widget-icon" style="background:rgba(139,92,246,0.12);color:#8b5cf6;"><i
+                  class="fas fa-user-graduate"></i></div>
+              <span class="widget-trend trend-up"><i class="fas fa-caret-up"></i> +0</span>
+            </div>
+            <div class="widget-value">0</div>
+            <div class="widget-label">Active Students</div>
+          </div>
+          <div class="widget-card glass">
+            <div class="widget-header">
+              <div class="widget-icon" style="background:rgba(59,130,246,0.12);color:#3b82f6;"><i
+                  class="fas fa-video"></i></div>
+              <span class="widget-trend">This Week</span>
+            </div>
+            <div class="widget-value">0</div>
+            <div class="widget-label">Sessions This Week</div>
+          </div>
+          <div class="widget-card glass">
+            <div class="widget-header">
+              <div class="widget-icon" style="background:rgba(245,158,11,0.12);color:#f59e0b;"><i
+                  class="fas fa-star"></i></div>
+              <span class="widget-trend trend-up"><i class="fas fa-caret-up"></i></span>
+            </div>
+            <div class="widget-value">0.0</div>
+            <div class="widget-label">Avg Rating</div>
+          </div>
+          <div class="widget-card glass">
+            <div class="widget-header">
+              <div class="widget-icon" style="background:rgba(16,185,129,0.12);color:#10b981;"><i
+                  class="fas fa-indian-rupee-sign"></i></div>
+              <span class="widget-trend">This Month</span>
+            </div>
+            <div class="widget-value">₹0</div>
+            <div class="widget-label">Earnings</div>
+          </div>
+        </div>
+
+        <!-- Panels -->
+        <div class="panel-grid" style="margin-top:1.5rem;">
+          <div class="panel-card glass">
+            <h2 class="panel-title">Upcoming Sessions</h2>
+            <div class="empty-state" style="padding:2.5rem 0;">
+              <i class="fas fa-calendar-xmark"></i>
+              <p>No upcoming sessions — schedule one!</p>
+              <button class="admin-action-btn mentor-btn" style="margin-top:1rem;"><i class="fas fa-calendar-plus"></i>
+                Schedule</button>
+            </div>
+          </div>
+          <div class="panel-card glass">
+            <h2 class="panel-title">Quick Actions</h2>
+            <div class="quick-actions-grid">
+              <button class="quick-action-btn" onclick="mentorNav('students')"><i
+                  class="fas fa-user-graduate"></i><span>View Students</span></button>
+              <button class="quick-action-btn" onclick="mentorNav('feedback')"><i
+                  class="fas fa-star"></i><span>Feedback</span></button>
+              <button class="quick-action-btn" onclick="mentorNav('performance')"><i
+                  class="fas fa-chart-line"></i><span>Analytics</span></button>
+              <button class="quick-action-btn" onclick="mentorNav('messages')"><i
+                  class="fas fa-comments"></i><span>Messages</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== MY STUDENTS ===== -->
+      <section id="students" class="mentor-section">
+        <div class="dashboard-header">
+          <div class="user-welcome">
+            <h1>My Students</h1>
+            <p>Track student progress and manage assignments.</p>
+          </div>
+        </div>
+        <div class="admin-table-card glass">
+          <div class="table-toolbar">
+            <div class="search-bar-wrapper" style="max-width:260px;"><i class="fas fa-search search-icon"></i><input
+                type="text" placeholder="Search students..."></div>
+            <div class="filter-chips">
+              <button class="filter-chip active">All</button>
+              <button class="filter-chip">Active</button>
+              <button class="filter-chip">Completed</button>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Student</th>
+                  <th>Goal</th>
+                  <th>Progress</th>
+                  <th>Last Session</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="7">
+                    <div class="empty-state"><i class="fas fa-user-slash"></i>
+                      <p>No students assigned yet — connect backend to load data</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== FEEDBACK ===== -->
+      <section id="feedback" class="mentor-section">
+        <div class="dashboard-header">
+          <div class="user-welcome">
+            <h1>Feedback &amp; Reviews</h1>
+            <p>See what students say about your sessions.</p>
+          </div>
+        </div>
+        <div class="panel-grid">
+          <div class="panel-card glass">
+            <h2 class="panel-title">Rating Summary</h2>
+            <div class="rating-summary">
+              <div class="big-rating">0.0</div>
+              <div class="stars-row">
+                <i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i
+                  class="far fa-star"></i><i class="far fa-star"></i>
+              </div>
+              <div style="color:var(--text-secondary);font-size:0.82rem;">Based on 0 reviews</div>
+            </div>
+            <div class="rating-bars">
+              <div class="rating-bar-row"><span>5 ⭐</span>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width:0%"></div>
+                </div><span>0</span>
+              </div>
+              <div class="rating-bar-row"><span>4 ⭐</span>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width:0%"></div>
+                </div><span>0</span>
+              </div>
+              <div class="rating-bar-row"><span>3 ⭐</span>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width:0%"></div>
+                </div><span>0</span>
+              </div>
+              <div class="rating-bar-row"><span>2 ⭐</span>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width:0%"></div>
+                </div><span>0</span>
+              </div>
+              <div class="rating-bar-row"><span>1 ⭐</span>
+                <div class="bar-track">
+                  <div class="bar-fill" style="width:0%"></div>
+                </div><span>0</span>
+              </div>
+            </div>
+          </div>
+          <div class="panel-card glass">
+            <h2 class="panel-title">Recent Reviews</h2>
+            <div class="empty-state" style="padding:3rem 0;"><i class="fas fa-comment-slash"></i>
+              <p>No reviews yet — sessions will appear here once connected</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== PERFORMANCE ===== -->
+      <section id="performance" class="mentor-section">
+        <div class="dashboard-header">
+          <div class="user-welcome">
+            <h1>Performance</h1>
+            <p>Your teaching analytics and student outcomes.</p>
+          </div>
+        </div>
+        <div class="dashboard-grid">
+          <div class="widget-card glass">
+            <div class="widget-header">
+              <div class="widget-icon" style="background:rgba(139,92,246,0.12);color:#8b5cf6;"><i
+                  class="fas fa-clock"></i></div><span class="widget-trend">All Time</span>
+            </div>
+            <div class="widget-value">0h</div>
+            <div class="widget-label">Total Teaching Hours</div>
+          </div>
+          <div class="widget-card glass">
+            <div class="widget-header">
+              <div class="widget-icon" style="background:rgba(16,185,129,0.12);color:#10b981;"><i
+                  class="fas fa-check-circle"></i></div><span class="widget-trend">All Time</span>
+            </div>
+            <div class="widget-value">0</div>
+            <div class="widget-label">Sessions Completed</div>
+          </div>
+          <div class="widget-card glass">
+            <div class="widget-header">
+              <div class="widget-icon" style="background:rgba(59,130,246,0.12);color:#3b82f6;"><i
+                  class="fas fa-user-check"></i></div><span class="widget-trend">Avg</span>
+            </div>
+            <div class="widget-value">0%</div>
+            <div class="widget-label">Student Retention</div>
+          </div>
+          <div class="widget-card glass">
+            <div class="widget-header">
+              <div class="widget-icon" style="background:rgba(245,158,11,0.12);color:#f59e0b;"><i
+                  class="fas fa-trophy"></i></div><span class="widget-trend">Rank</span>
+            </div>
+            <div class="widget-value">—</div>
+            <div class="widget-label">Mentor Rank</div>
+          </div>
+        </div>
+        <div class="panel-card glass" style="margin-top:1.5rem;">
+          <h2 class="panel-title">Sessions Over Time</h2>
+          <div class="empty-state" style="padding:3rem 0;"><i class="fas fa-chart-area"></i>
+            <p>Chart will appear once backend is connected and session data exists</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== MESSAGES ===== -->
+      <section id="messages" class="mentor-section">
+        <div class="dashboard-header">
+          <div class="user-welcome">
+            <h1>Messages</h1>
+            <p>Chat with your students.</p>
+          </div>
+        </div>
+        <div class="chat-layout glass">
+          <div class="chat-sidebar">
+            <div class="chat-search"><i class="fas fa-search"></i><input type="text" placeholder="Search chats...">
+            </div>
+            <div class="chat-list">
+              <div class="empty-state" style="padding:2rem 0;"><i class="fas fa-inbox"></i>
+                <p>No messages yet</p>
+              </div>
+            </div>
+          </div>
+          <div class="chat-main">
+            <div class="chat-placeholder"><i class="fas fa-comment-dots"></i>
+              <p>Select a student to start chatting</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SETTINGS ===== -->
+      <section id="settings" class="mentor-section">
+        <div class="dashboard-header">
+          <div class="user-welcome">
+            <h1>Settings</h1>
+            <p>Configure your mentor profile and preferences.</p>
+          </div>
+        </div>
+        <div class="panel-grid">
+          <div class="panel-card glass">
+            <h2 class="panel-title">Profile</h2>
+            <div class="settings-list">
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-label">Display Name</div>
+                  <div class="setting-desc">Your public mentor name</div>
+                </div>
+                <button class="admin-action-btn btn-outline">Edit</button>
+              </div>
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-label">Expertise Tags</div>
+                  <div class="setting-desc">Skills you mentor in</div>
+                </div>
+                <button class="admin-action-btn btn-outline">Edit</button>
+              </div>
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-label">Bio</div>
+                  <div class="setting-desc">Your mentor introduction</div>
+                </div>
+                <button class="admin-action-btn btn-outline">Edit</button>
+              </div>
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-label">Session Rate (₹/hr)</div>
+                  <div class="setting-desc">Your hourly mentoring rate</div>
+                </div>
+                <button class="admin-action-btn btn-outline">Set Rate</button>
+              </div>
+            </div>
+          </div>
+          <div class="panel-card glass">
+            <h2 class="panel-title">Notifications</h2>
+            <div class="settings-list">
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-label">Session Reminders</div>
+                  <div class="setting-desc">Email before each session</div>
+                </div>
+                <label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+              </div>
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-label">New Student Requests</div>
+                  <div class="setting-desc">When a student books you</div>
+                </div>
+                <label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+              </div>
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-label">New Reviews</div>
+                  <div class="setting-desc">When a student leaves a review</div>
+                </div>
+                <label class="toggle-switch"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="js/mentor.js"></script>
+</body>
+
+</html>

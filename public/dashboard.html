@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +10,21 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link class="page-css" rel="stylesheet" href="css/dashboard.css?v=2">
+  <script>
+    // Route guard: Redirect admin/mentor from student dashboard
+    const role = localStorage.getItem('userRole');
+    if (role === 'admin') {
+      window.location.replace('/admin');
+    } else if (role === 'mentor') {
+      window.location.replace('/mentor');
+    }
+  </script>
 </head>
+
 <body>
 
   <div class="dashboard-layout">
-    
+
     <!-- Top Navbar -->
     <header class="dashboard-top-nav">
       <div class="top-nav-left">
@@ -30,31 +41,72 @@
       <div class="top-nav-center">
         <button class="top-nav-btn btn-evaluate"><i class="fas fa-wand-magic-sparkles"></i> Evaluate</button>
         <button class="top-nav-btn btn-interview"><i class="far fa-file-alt"></i> Interview Qs</button>
-        <button class="top-nav-btn btn-get-plus"><i class="fas fa-crown"></i> Get Plus</button>
-        <button class="top-nav-btn btn-square"><i class="fas fa-globe"></i></button>
-        
+        <button class="top-nav-btn btn-get-plus"><i class="fas fa-crown"></i> Premium</button>
+
         <span class="nav-divider"></span>
-        
-        <a href="#" class="top-nav-link coming-soon-trigger">Work & Learn <span class="badge-super">SUPER 30</span></a>
+
+        <a href="#" class="top-nav-link coming-soon-trigger">Work & Learn</a>
         <a href="#" class="top-nav-link coming-soon-trigger">Workshops</a>
         <a href="#" class="top-nav-link coming-soon-trigger">Consultancy</a>
       </div>
 
       <div class="top-nav-right">
         <button class="theme-toggle-btn" aria-label="Toggle Theme">
-          <i class="fas fa-sun"></i>
+          <!-- Sun icon (shown in dark mode) -->
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <!-- Moon icon (shown in light mode) -->
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
         </button>
         <div class="notification-wrapper coming-soon-trigger" style="display: flex; align-items: center; gap: 4px;">
           <i class="far fa-bell"></i>
-          <span class="notification-badge">10</span>
+          <span class="notification-badge">0</span>
         </div>
         <div class="user-profile-wrapper">
           <div class="user-profile-btn">
             <i class="far fa-user-circle"></i>
           </div>
           <div class="profile-dropdown glass">
-            <a href="/profile"><i class="fas fa-user-cog"></i> Profile Settings</a>
-            <a href="/" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <div class="dropdown-user-header">
+              <div class="dropdown-avatar-circle">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="dropdown-user-details">
+                <div class="dropdown-user-name" id="dropdown-user-name-field">John Doe</div>
+                <div class="dropdown-user-email" id="dropdown-user-email-field">john.doe@university.edu</div>
+              </div>
+            </div>
+
+            <div class="dropdown-actions-wrapper">
+              <a href="/profile" class="dropdown-action-btn">View Community Profile</a>
+              <a href="/profile" class="dropdown-action-btn">Manage Account</a>
+            </div>
+
+            <div class="dropdown-divider"></div>
+
+            <ul class="dropdown-menu-list">
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-cubes"></i> My Hackathons</a></li>
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-book-open"></i> My Learning</a></li>
+              <li class="menu-divider"></li>
+              <li><a href="/profile"><i class="fas fa-cog"></i> Settings</a></li>
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-file-invoice-dollar"></i> Invoice</a></li>
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-wallet"></i> Wallet</a></li>
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-life-ring"></i> Support</a></li>
+              <li class="menu-divider"></li>
+              <li><a href="/" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -84,7 +136,8 @@
             <a href="#" class="coming-soon-trigger"><i class="fas fa-microphone"></i> <span>Interview Coach</span></a>
           </li>
           <li class="sidebar-item">
-            <a href="#" class="coming-soon-trigger"><i class="fas fa-briefcase"></i> <span>Internship Assistant</span></a>
+            <a href="#" class="coming-soon-trigger"><i class="fas fa-briefcase"></i> <span>Internship
+                Assistant</span></a>
           </li>
           <li class="sidebar-item">
             <a href="#" class="coming-soon-trigger"><i class="fas fa-network-wired"></i> <span>Placement Hub</span></a>
@@ -95,17 +148,18 @@
 
     <!-- Main Content Area -->
     <main class="main-content">
-      
+
       <!-- Top Header -->
       <div class="dashboard-header">
-        
+
         <div class="user-welcome">
-          <h1 id="welcome-name">Welcome back, John! 👋</h1>
+          <h1 id="welcome-name">Welcome back, John!</h1>
           <p>Here is an overview of your progress and tools.</p>
         </div>
 
         <div class="dashboard-actions">
-          <div class="glass" style="padding: 0.6rem 1.2rem; font-size: 0.9rem; font-weight: 700; border-radius: 12px; display: flex; align-items: center; gap: 6px; color: var(--primary);">
+          <div class="glass"
+            style="padding: 0.6rem 1.2rem; font-size: 0.9rem; font-weight: 700; border-radius: 12px; display: flex; align-items: center; gap: 6px; color: var(--primary);">
             <i class="fas fa-bullseye"></i> Software Engineer
           </div>
         </div>
@@ -164,7 +218,7 @@
 
       <!-- Main Panels Layout -->
       <div class="panel-grid">
-        
+
         <!-- Left Side: AI Tool Cards -->
         <div class="panel-card glass">
           <h2 class="panel-title">AI Core Suites</h2>
@@ -175,7 +229,8 @@
                 <h3>Study Assistant</h3>
                 <span class="badge-soon">Coming Soon</span>
               </div>
-              <p>Prepare university summaries, resolve textbook questions instantly, and create customized revision planners.</p>
+              <p>Prepare university summaries, resolve textbook questions instantly, and create customized revision
+                planners.</p>
               <a href="#" class="tool-btn">Access Tool <i class="fas fa-arrow-right"></i></a>
             </div>
 
@@ -205,7 +260,8 @@
                 <h3>Interview Coach</h3>
                 <span class="badge-soon">Coming Soon</span>
               </div>
-              <p>Conduct mock video practices. Receive grading on question-accuracy, coding speed, and volume dynamics.</p>
+              <p>Conduct mock video practices. Receive grading on question-accuracy, coding speed, and volume dynamics.
+              </p>
               <a href="#" class="tool-btn">Access Tool <i class="fas fa-arrow-right"></i></a>
             </div>
           </div>
@@ -213,7 +269,7 @@
 
         <!-- Right Side: Progress & Recent Activity -->
         <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-          
+
           <!-- Profile Completion Card -->
           <div class="panel-card glass">
             <h2 class="panel-title">Profile Completion</h2>
@@ -224,7 +280,8 @@
               <span>75% Completed</span>
               <span>25% to go</span>
             </div>
-            <a href="/profile" class="btn btn-secondary" style="width: 100%; border-radius: 12px; font-size: 0.9rem; padding: 0.7rem 1.5rem;">Complete Profile</a>
+            <a href="/profile" class="btn btn-secondary"
+              style="width: 100%; border-radius: 12px; font-size: 0.9rem; padding: 0.7rem 1.5rem;">Complete Profile</a>
           </div>
 
           <!-- Recent Activity Card -->
@@ -241,7 +298,8 @@
               </div>
               <!-- Item 2 -->
               <div class="activity-item">
-                <div class="activity-dot" style="background: var(--secondary); box-shadow: 0 0 8px var(--secondary);"></div>
+                <div class="activity-dot" style="background: var(--secondary); box-shadow: 0 0 8px var(--secondary);">
+                </div>
                 <div class="activity-details">
                   <p>Completed Data Structures Mock Interview</p>
                   <div class="activity-time">Yesterday</div>
@@ -270,9 +328,17 @@
   <script src="js/dashboard.js"></script>
   <script>
     // Custom dynamic greeting from storage
-    const storedName = localStorage.getItem('userName');
-    if (storedName) {
+    const storedName = localStorage.getItem('userName') || 'John Doe';
+    const storedEmail = localStorage.getItem('userEmail') || 'john.doe@university.edu';
+
+    if (document.getElementById('welcome-name')) {
       document.getElementById('welcome-name').innerText = `Welcome back, ${storedName}! 👋`;
+    }
+    if (document.getElementById('dropdown-user-name-field')) {
+      document.getElementById('dropdown-user-name-field').innerText = storedName;
+    }
+    if (document.getElementById('dropdown-user-email-field')) {
+      document.getElementById('dropdown-user-email-field').innerText = storedEmail;
     }
 
     // Connect trigger for Coming Soon notification alerts
@@ -291,4 +357,5 @@
     });
   </script>
 </body>
+
 </html>

@@ -99,6 +99,48 @@
           "time": "Just now"
         }
       ]
+    },
+    {
+      "id": 1,
+      "name": "System Admin",
+      "email": "admin@adyapan.ai",
+      "password": "admin",
+      "role": "admin",
+      "profile": {
+        "skills": "",
+        "careerGoal": "Platform Administration",
+        "linkedin": "",
+        "github": "",
+        "resume": null
+      },
+      "stats": {
+        "notesGenerated": 0,
+        "resumeScore": 0,
+        "interviewsCompleted": 0,
+        "careerProgress": 100
+      },
+      "activities": []
+    },
+    {
+      "id": 2,
+      "name": "Mentor Expert",
+      "email": "mentor@adyapan.ai",
+      "password": "mentor",
+      "role": "mentor",
+      "profile": {
+        "skills": "Web Development, AI",
+        "careerGoal": "Industry Mentor",
+        "linkedin": "",
+        "github": "",
+        "resume": null
+      },
+      "stats": {
+        "notesGenerated": 0,
+        "resumeScore": 0,
+        "interviewsCompleted": 0,
+        "careerProgress": 100
+      },
+      "activities": []
     }
   ]
 }

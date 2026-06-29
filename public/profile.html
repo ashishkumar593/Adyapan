@@ -31,31 +31,60 @@
       <div class="top-nav-center">
         <button class="top-nav-btn btn-evaluate"><i class="fas fa-wand-magic-sparkles"></i> Evaluate</button>
         <button class="top-nav-btn btn-interview"><i class="far fa-file-alt"></i> Interview Qs</button>
-        <button class="top-nav-btn btn-get-plus"><i class="fas fa-crown"></i> Get Plus</button>
-        <button class="top-nav-btn btn-square"><i class="fas fa-globe"></i></button>
+        <button class="top-nav-btn btn-get-plus"><i class="fas fa-crown"></i> Premium</button>
         
         <span class="nav-divider"></span>
         
-        <a href="#" class="top-nav-link coming-soon-trigger">Work & Learn <span class="badge-super">SUPER 30</span></a>
+        <a href="#" class="top-nav-link coming-soon-trigger">Work & Learn</a>
         <a href="#" class="top-nav-link coming-soon-trigger">Workshops</a>
         <a href="#" class="top-nav-link coming-soon-trigger">Consultancy</a>
       </div>
 
       <div class="top-nav-right">
         <button class="theme-toggle-btn" aria-label="Toggle Theme">
-          <i class="fas fa-sun"></i>
+          <!-- Sun icon (shown in dark mode) -->
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <!-- Moon icon (shown in light mode) -->
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         </button>
         <div class="notification-wrapper coming-soon-trigger" style="display: flex; align-items: center; gap: 4px;">
           <i class="far fa-bell"></i>
-          <span class="notification-badge">10</span>
+          <span class="notification-badge">0</span>
         </div>
         <div class="user-profile-wrapper">
           <div class="user-profile-btn">
             <i class="far fa-user-circle"></i>
           </div>
           <div class="profile-dropdown glass">
-            <a href="/profile"><i class="fas fa-user-cog"></i> Profile Settings</a>
-            <a href="/" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <div class="dropdown-user-header">
+              <div class="dropdown-avatar-circle">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="dropdown-user-details">
+                <div class="dropdown-user-name" id="dropdown-user-name-field">John Doe</div>
+                <div class="dropdown-user-email" id="dropdown-user-email-field">john.doe@university.edu</div>
+              </div>
+            </div>
+
+            <div class="dropdown-actions-wrapper">
+              <a href="/profile" class="dropdown-action-btn">View Community Profile</a>
+              <a href="/profile" class="dropdown-action-btn">Manage Account</a>
+            </div>
+
+            <div class="dropdown-divider"></div>
+
+            <ul class="dropdown-menu-list">
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-cubes"></i> My Hackathons</a></li>
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-book-open"></i> My Learning</a></li>
+              <li class="menu-divider"></li>
+              <li><a href="/profile"><i class="fas fa-cog"></i> Settings</a></li>
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-file-invoice-dollar"></i> Invoice</a></li>
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-wallet"></i> Wallet</a></li>
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-life-ring"></i> Support</a></li>
+              <li class="menu-divider"></li>
+              <li><a href="/" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -250,6 +279,13 @@
 
       document.getElementById('profile-card-name').innerText = nameVal;
       document.getElementById('profile-card-email').innerText = emailVal;
+
+      if (document.getElementById('dropdown-user-name-field')) {
+        document.getElementById('dropdown-user-name-field').innerText = nameVal;
+      }
+      if (document.getElementById('dropdown-user-email-field')) {
+        document.getElementById('dropdown-user-email-field').innerText = emailVal;
+      }
 
       // Update name text live in avatar card
       document.getElementById('name').addEventListener('input', function() {
