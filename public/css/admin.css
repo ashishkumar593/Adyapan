@@ -1,7 +1,7 @@
 /* ========================================
    Admin Dashboard CSS - Adyapan AI
    Extends: style.css + dashboard.css
-   Accent: Rose/Red #f43f5e
+   Accent: Amber/Gold #f59e0b (same as student)
    ======================================== */
 
 /* Role Badge */
@@ -17,9 +17,9 @@
   text-transform: uppercase;
 }
 .role-admin {
-  background: rgba(244, 63, 94, 0.12);
-  color: #f43f5e;
-  border: 1px solid rgba(244, 63, 94, 0.25);
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--primary);
+  border: 1px solid rgba(245, 158, 11, 0.25);
 }
 
 /* Live Badge */

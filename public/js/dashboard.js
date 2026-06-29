@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initSidebarToggle();
   fetchDashboardDataFromServer();
   initComingSoonBadges();
+  initSubmenuAccordions();
+  initPlacementGauges();
 });
 
 // 1. Dashboard Theme Management
@@ -91,9 +93,13 @@ function fetchDashboardDataFromServer() {
       }
 
       // 1. Update Welcome Message
-      const welcomeHeader = document.getElementById('welcome-name');
+      const welcomeHeader = document.getElementById('welcome-greeting-text');
       if (welcomeHeader) {
-        welcomeHeader.innerText = `Welcome back, ${data.name}! 👋`;
+        const hr = new Date().getHours();
+        let greet = "Good Afternoon";
+        if (hr < 12) greet = "Good Morning";
+        else if (hr >= 17) greet = "Good Evening";
+        welcomeHeader.innerText = `${greet}, ${data.name}`;
       }
 
       // 2. Animate stats using database values
@@ -174,7 +180,7 @@ function initComingSoonBadges() {
     if (tool.querySelector('.badge-soon')) {
       tool.addEventListener('click', (e) => {
         e.preventDefault();
-        showNotification(`${tool.querySelector('h3').innerText} will be available in the upcoming release! 🚀`);
+        showNotification(`${tool.querySelector('h3').innerText} will be available in the upcoming release!`);
       });
     }
   });
@@ -221,4 +227,62 @@ function showNotification(message) {
     toast.style.transform = 'translateY(10px)';
     setTimeout(() => toast.remove(), 300);
   }, 4000);
+}
+
+// 5. Expandable Submenus (Accordion)
+function initSubmenuAccordions() {
+  const submenuToggles = document.querySelectorAll('.submenu-toggle');
+  
+  submenuToggles.forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const parentItem = toggle.closest('.has-submenu');
+      const isOpen = parentItem.classList.contains('open');
+      
+      // Close other open submenus first (Accordion style)
+      document.querySelectorAll('.has-submenu').forEach(item => {
+        item.classList.remove('open');
+      });
+      
+      // Toggle current submenu
+      if (!isOpen) {
+        parentItem.classList.add('open');
+        
+        // Auto-expand the sidebar layout if collapsed to ensure usability
+        const layout = document.querySelector('.dashboard-layout');
+        if (layout && layout.classList.contains('collapsed')) {
+          layout.classList.remove('collapsed');
+        }
+      }
+    });
+  });
+
+  // Re-bind the click actions for items dynamically loaded under submenus
+  document.querySelectorAll('.sidebar-submenu a.coming-soon-trigger').forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof showNotification === 'function') {
+        showNotification(`${item.innerText.trim()} will be available in the upcoming release!`);
+      }
+    });
+  });
+}
+
+// 6. Placement Gauge Animations
+function initPlacementGauges() {
+  document.querySelectorAll('.circular-gauge').forEach(gauge => {
+    const targetPercent = parseInt(gauge.getAttribute('data-percent')) || 0;
+    let currentPercent = 0;
+    const animateGauge = setInterval(() => {
+      if (currentPercent >= targetPercent) {
+        clearInterval(animateGauge);
+      } else {
+        currentPercent++;
+        gauge.style.background = `conic-gradient(var(--primary) ${currentPercent}%, var(--border-color) 0)`;
+      }
+    }, 8);
+  });
 }

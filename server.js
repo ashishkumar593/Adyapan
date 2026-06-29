@@ -82,9 +82,6 @@ app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
 });
 
-app.get('/profile', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'profile.html'));
-});
 
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
@@ -326,6 +323,202 @@ app.post('/api/profile/remove-resume', (req, res) => {
 
   writeDatabase(db);
   res.json({ message: 'Resume removed successfully' });
+});
+
+// Mentor APIs
+
+// 1. Get Mentor Dashboard Data
+app.get('/api/mentor/dashboard-data', (req, res) => {
+  const { email } = req.query;
+  if (!email) {
+    return res.status(400).json({ error: 'Email parameter is required.' });
+  }
+
+  const db = readDatabase();
+  const mentor = db.users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.role === 'mentor');
+
+  if (!mentor) {
+    return res.status(404).json({ error: 'Mentor not found.' });
+  }
+
+  // Filter sessions, students, reviews for this mentor
+  const sessions = (db.sessions || []).filter(s => s.mentorId === mentor.id);
+  const students = (db.mentorStudents || []).filter(s => s.mentorId === mentor.id);
+  const reviews = (db.mentorReviews || []).filter(r => r.mentorId === mentor.id);
+  
+  // Calculate average rating
+  const avgRating = reviews.length > 0 
+    ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
+    : "0.0";
+
+  // Calculate stats
+  const stats = {
+    activeStudents: students.filter(s => s.status === 'Active').length,
+    sessionsThisWeek: sessions.filter(s => s.status === 'scheduled').length,
+    avgRating: parseFloat(avgRating),
+    earnings: reviews.length * 1500, // Mock earnings calculation
+    totalTeachingHours: reviews.length * 1.5,
+    sessionsCompleted: sessions.filter(s => s.status === 'completed').length,
+    studentRetention: 85,
+    rank: "Expert"
+  };
+
+  res.json({
+    mentor: {
+      id: mentor.id,
+      name: mentor.name,
+      email: mentor.email,
+      profile: mentor.profile || {}
+    },
+    stats,
+    sessions,
+    students,
+    reviews
+  });
+});
+
+// 2. Schedule a New Session
+app.post('/api/mentor/schedule-session', (req, res) => {
+  const { email, studentName, topic, dateTime } = req.body;
+  if (!email || !studentName || !topic || !dateTime) {
+    return res.status(400).json({ error: 'All fields (email, studentName, topic, dateTime) are required.' });
+  }
+
+  const db = readDatabase();
+  const mentor = db.users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.role === 'mentor');
+
+  if (!mentor) {
+    return res.status(404).json({ error: 'Mentor not found.' });
+  }
+
+  if (!db.sessions) db.sessions = [];
+
+  const newSession = {
+    id: Date.now(),
+    mentorId: mentor.id,
+    studentName,
+    topic,
+    dateTime,
+    status: 'scheduled'
+  };
+
+  db.sessions.push(newSession);
+  
+  // Also add student relationship if not already exists
+  if (!db.mentorStudents) db.mentorStudents = [];
+  const studentExists = db.mentorStudents.some(s => s.mentorId === mentor.id && s.studentName.toLowerCase() === studentName.toLowerCase());
+  
+  if (!studentExists) {
+    db.mentorStudents.push({
+      id: Date.now() + 1,
+      mentorId: mentor.id,
+      studentName,
+      goal: 'Software Engineer',
+      progress: 50,
+      lastSession: new Date().toISOString().split('T')[0],
+      status: 'Active'
+    });
+  }
+
+  writeDatabase(db);
+  res.status(201).json({ message: 'Session scheduled successfully', session: newSession });
+});
+
+// 3. Save Mentor Profile Settings
+app.post('/api/mentor/save-settings', (req, res) => {
+  const { email, name, expertise, bio, sessionRate } = req.body;
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required.' });
+  }
+
+  const db = readDatabase();
+  const userIndex = db.users.findIndex(u => u.email.toLowerCase() === email.toLowerCase() && u.role === 'mentor');
+
+  if (userIndex === -1) {
+    return res.status(404).json({ error: 'Mentor not found.' });
+  }
+
+  db.users[userIndex].name = name || db.users[userIndex].name;
+  db.users[userIndex].profile = {
+    ...db.users[userIndex].profile,
+    skills: expertise || db.users[userIndex].profile.skills,
+    bio: bio || db.users[userIndex].profile.bio || '',
+    sessionRate: sessionRate || db.users[userIndex].profile.sessionRate || '1000'
+  };
+
+  writeDatabase(db);
+  res.json({ message: 'Settings saved successfully', mentor: db.users[userIndex] });
+});
+
+// 4. Get Chat Rooms
+app.get('/api/mentor/chat-rooms', (req, res) => {
+  const { email } = req.query;
+  if (!email) {
+    return res.status(400).json({ error: 'Email parameter is required.' });
+  }
+
+  const db = readDatabase();
+  const mentor = db.users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.role === 'mentor');
+
+  if (!mentor) {
+    return res.status(404).json({ error: 'Mentor not found.' });
+  }
+
+  const students = (db.mentorStudents || []).filter(s => s.mentorId === mentor.id);
+  const messages = db.chatMessages || [];
+
+  // Group rooms by studentName
+  const rooms = students.map(s => {
+    const studentMessages = messages.filter(m => m.studentName.toLowerCase() === s.studentName.toLowerCase());
+    const lastMessage = studentMessages[studentMessages.length - 1];
+    return {
+      roomId: `room-${s.studentName.toLowerCase().replace(/\s+/g, '-')}`,
+      studentName: s.studentName,
+      lastMessageText: lastMessage ? lastMessage.text : 'Select a student to start chatting',
+      lastMessageTime: lastMessage ? lastMessage.timestamp : ''
+    };
+  });
+
+  res.json(rooms);
+});
+
+// 5. Get Chat Messages
+app.get('/api/mentor/chat-messages', (req, res) => {
+  const { roomId } = req.query;
+  if (!roomId) {
+    return res.status(400).json({ error: 'Room ID parameter is required.' });
+  }
+
+  const db = readDatabase();
+  const messages = db.chatMessages || [];
+  const roomMessages = messages.filter(m => m.roomId.toLowerCase() === roomId.toLowerCase());
+
+  res.json(roomMessages);
+});
+
+// 6. Send Chat Message
+app.post('/api/mentor/send-message', (req, res) => {
+  const { roomId, studentName, sender, text } = req.body;
+  if (!roomId || !studentName || !sender || !text) {
+    return res.status(400).json({ error: 'All fields (roomId, studentName, sender, text) are required.' });
+  }
+
+  const db = readDatabase();
+  if (!db.chatMessages) db.chatMessages = [];
+
+  const newMessage = {
+    id: Date.now(),
+    roomId,
+    studentName,
+    sender,
+    text,
+    timestamp: new Date().toISOString()
+  };
+
+  db.chatMessages.push(newMessage);
+  writeDatabase(db);
+
+  res.status(201).json({ message: 'Message sent successfully', messageData: newMessage });
 });
 
 // Start Server

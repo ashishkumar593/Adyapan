@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
-  <link class="page-css" rel="stylesheet" href="css/dashboard.css?v=2">
+  <link class="page-css" rel="stylesheet" href="css/dashboard.css?v=10">
   <script>
     // Route guard: Redirect admin/mentor from student dashboard
     const role = localStorage.getItem('userRole');
@@ -28,31 +28,62 @@
     <!-- Top Navbar -->
     <header class="dashboard-top-nav">
       <div class="top-nav-left">
-        <a href="/" class="dashboard-logo">
+        <a href="/dashboard" class="dashboard-logo">
           <img src="assets/logo.png" alt="Adyapan AI Logo">
           <span>Adyapan AI</span>
         </a>
         <div class="search-bar-wrapper">
           <i class="fas fa-search search-icon"></i>
-          <input type="text" placeholder="Search courses, tools...">
+          <input type="text" placeholder="Search notes, assignments, jobs, tools...">
         </div>
       </div>
 
       <div class="top-nav-center">
-        <button class="top-nav-btn btn-evaluate"><i class="fas fa-wand-magic-sparkles"></i> Evaluate</button>
-        <button class="top-nav-btn btn-interview"><i class="far fa-file-alt"></i> Interview Qs</button>
-        <button class="top-nav-btn btn-get-plus"><i class="fas fa-crown"></i> Premium</button>
+        <!-- Generate Dropdown -->
+        <div class="nav-dropdown-wrapper">
+          <button class="top-nav-btn btn-generate nav-dropdown-toggle">
+            <i class="fas fa-plus"></i> Generate <i class="fas fa-chevron-down toggle-arrow"></i>
+          </button>
+          <div class="nav-dropdown-menu">
+            <a href="#" class="coming-soon-trigger"><i class="far fa-file-alt"></i> Notes</a>
+            <a href="#" class="coming-soon-trigger"><i class="fas fa-tasks"></i> Assignment</a>
+            <a href="#" class="coming-soon-trigger"><i class="far fa-file-powerpoint"></i> PPT</a>
+            <a href="#" class="coming-soon-trigger"><i class="fas fa-list-ol"></i> MCQs</a>
+            <a href="#" class="coming-soon-trigger"><i class="far fa-newspaper"></i> Research Paper</a>
+            <a href="#" class="coming-soon-trigger"><i class="far fa-id-badge"></i> Resume</a>
+          </div>
+        </div>
+
+        <!-- AI Interview -->
+        <button class="top-nav-btn btn-interview coming-soon-trigger">
+          <i class="fas fa-microphone"></i> AI Interview
+        </button>
+
+        <!-- Evaluate Dropdown -->
+        <div class="nav-dropdown-wrapper">
+          <button class="top-nav-btn btn-evaluate nav-dropdown-toggle">
+            <i class="fas fa-wand-magic-sparkles"></i> Evaluate <i class="fas fa-chevron-down toggle-arrow"></i>
+          </button>
+          <div class="nav-dropdown-menu">
+            <a href="#" class="coming-soon-trigger"><i class="fas fa-star"></i> ATS Score</a>
+            <a href="#" class="coming-soon-trigger"><i class="fas fa-file-signature"></i> Resume Analysis</a>
+            <a href="#" class="coming-soon-trigger"><i class="fas fa-check-double"></i> Skill Assessment</a>
+            <a href="#" class="coming-soon-trigger"><i class="fas fa-chart-pie"></i> Placement Readiness</a>
+          </div>
+        </div>
 
         <span class="nav-divider"></span>
 
-        <a href="#" class="top-nav-link coming-soon-trigger">Work & Learn</a>
-        <a href="#" class="top-nav-link coming-soon-trigger">Workshops</a>
-        <a href="#" class="top-nav-link coming-soon-trigger">Consultancy</a>
+        <a href="#" class="top-nav-link coming-soon-trigger">Jobs</a>
+        <a href="#" class="top-nav-link coming-soon-trigger">Internships</a>
       </div>
 
       <div class="top-nav-right">
+        <!-- Premium -->
+        <button class="top-nav-btn btn-premium coming-soon-trigger"><i class="fas fa-crown"></i> Premium</button>
+
+        <!-- Theme Toggle -->
         <button class="theme-toggle-btn" aria-label="Toggle Theme">
-          <!-- Sun icon (shown in dark mode) -->
           <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="5" />
             <line x1="12" y1="1" x2="12" y2="3" />
@@ -64,20 +95,61 @@
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
           </svg>
-          <!-- Moon icon (shown in light mode) -->
           <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
           </svg>
         </button>
-        <div class="notification-wrapper coming-soon-trigger" style="display: flex; align-items: center; gap: 4px;">
-          <i class="far fa-bell"></i>
-          <span class="notification-badge">0</span>
+
+        <!-- Notifications Dropdown -->
+        <div class="notification-wrapper">
+          <div class="notification-btn">
+            <i class="far fa-bell"></i>
+            <span class="notification-badge">2</span>
+          </div>
+          <div class="notification-dropdown">
+            <div class="notif-header">
+              <span>Notifications</span>
+              <span class="mark-read">Mark all as read</span>
+            </div>
+            <div class="notif-list">
+              <div class="notif-item unread">
+                <div class="notif-icon" style="color:var(--primary); background:rgba(245,158,11,0.1);"><i class="fas fa-file-invoice"></i></div>
+                <div class="notif-content">
+                  <p class="notif-text">Resume Score Updated</p>
+                  <span class="notif-time">2 mins ago</span>
+                </div>
+              </div>
+              <div class="notif-item unread">
+                <div class="notif-icon" style="color:#10b981; background:rgba(16,185,129,0.1);"><i class="fas fa-briefcase"></i></div>
+                <div class="notif-content">
+                  <p class="notif-text">New Internship Match</p>
+                  <span class="notif-time">1 hour ago</span>
+                </div>
+              </div>
+              <div class="notif-item">
+                <div class="notif-icon" style="color:#3b82f6; background:rgba(59,130,246,0.1);"><i class="far fa-calendar-alt"></i></div>
+                <div class="notif-content">
+                  <p class="notif-text">Interview Reminder</p>
+                  <span class="notif-time">Tomorrow at 10:00 AM</span>
+                </div>
+              </div>
+              <div class="notif-item">
+                <div class="notif-icon" style="color:#8b5cf6; background:rgba(139,92,246,0.1);"><i class="fas fa-trophy"></i></div>
+                <div class="notif-content">
+                  <p class="notif-text">Placement Challenge Available</p>
+                  <span class="notif-time">2 days ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- Profile Dropdown -->
         <div class="user-profile-wrapper">
           <div class="user-profile-btn">
             <i class="far fa-user-circle"></i>
           </div>
-          <div class="profile-dropdown glass">
+          <div class="profile-dropdown">
             <div class="dropdown-user-header">
               <div class="dropdown-avatar-circle">
                 <i class="fas fa-user"></i>
@@ -89,23 +161,21 @@
             </div>
 
             <div class="dropdown-actions-wrapper">
-              <a href="/profile" class="dropdown-action-btn">View Community Profile</a>
-              <a href="/profile" class="dropdown-action-btn">Manage Account</a>
+              <a href="#" class="dropdown-action-btn coming-soon-trigger">View Community Profile</a>
+              <a href="#" class="dropdown-action-btn coming-soon-trigger">Manage Account</a>
             </div>
 
             <div class="dropdown-divider"></div>
 
             <ul class="dropdown-menu-list">
-              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-cubes"></i> My Hackathons</a></li>
-              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-book-open"></i> My Learning</a></li>
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-user"></i> My Profile</a></li>
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-chart-line"></i> Learning Progress</a></li>
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-award"></i> Certificates</a></li>
               <li class="menu-divider"></li>
-              <li><a href="/profile"><i class="fas fa-cog"></i> Settings</a></li>
-              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-chart-bar"></i> Analytics</a></li>
-              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-file-invoice-dollar"></i> Invoice</a></li>
-              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-wallet"></i> Wallet</a></li>
-              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-life-ring"></i> Support</a></li>
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-cog"></i> Settings</a></li>
+              <li><a href="#" class="coming-soon-trigger"><i class="fas fa-credit-card"></i> Billing</a></li>
               <li class="menu-divider"></li>
-              <li><a href="/" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+              <li><a href="/" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
           </div>
         </div>
@@ -118,29 +188,218 @@
         <div class="sidebar-close"><i class="fas fa-times"></i></div>
       </div>
 
-      <nav style="flex-grow: 1;">
+      <nav style="flex-grow: 1; margin-top: 0.5rem;">
         <ul class="sidebar-menu">
           <li class="sidebar-item active">
             <a href="/dashboard"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
           </li>
-          <li class="sidebar-item">
-            <a href="#" class="coming-soon-trigger"><i class="fas fa-book-open"></i> <span>Study Assistant</span></a>
+
+          <!-- Learning Hub -->
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-graduation-cap"></i>
+              <span>Learning Hub</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#" class="coming-soon-trigger"><span>Study Assistant</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Notes Generator</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>PPT Generator</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Assignment Generator</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>MCQ Generator</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Question Bank Generator</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>PDF Summarizer</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Flashcards</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Mind Maps</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Topic Explainer</span></a></li>
+            </ul>
           </li>
-          <li class="sidebar-item">
-            <a href="#" class="coming-soon-trigger"><i class="fas fa-compass"></i> <span>Career Guide</span></a>
+
+          <!-- Coding Hub -->
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-code"></i>
+              <span>Coding Hub</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#" class="coming-soon-trigger"><span>Coding Assistant</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Code Generator</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Code Debugger</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>DSA Practice</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Coding Assignments</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Coding Challenges</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Project Ideas</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>GitHub Portfolio Builder</span></a></li>
+            </ul>
           </li>
-          <li class="sidebar-item">
-            <a href="#" class="coming-soon-trigger"><i class="fas fa-file-invoice"></i> <span>Resume Builder</span></a>
+
+          <!-- Career Hub -->
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-compass"></i>
+              <span>Career Hub</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#" class="coming-soon-trigger"><span>Career Guide</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Career Roadmap</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Skill Gap Analysis</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Domain Recommendation</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Certification Recommendation</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Learning Path Generator</span></a></li>
+            </ul>
           </li>
-          <li class="sidebar-item">
-            <a href="#" class="coming-soon-trigger"><i class="fas fa-microphone"></i> <span>Interview Coach</span></a>
+
+          <!-- Resume Hub -->
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-file-invoice"></i>
+              <span>Resume Hub</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#" class="coming-soon-trigger"><span>Resume Builder</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>ATS Score Checker</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Resume Analyzer</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Resume Templates</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Cover Letter Generator</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>LinkedIn Optimizer</span></a></li>
+            </ul>
           </li>
-          <li class="sidebar-item">
-            <a href="#" class="coming-soon-trigger"><i class="fas fa-briefcase"></i> <span>Internship
-                Assistant</span></a>
+
+          <!-- Interview Hub -->
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-microphone"></i>
+              <span>Interview Hub</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#" class="coming-soon-trigger"><span>AI HR Interview</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>AI Technical Interview</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Mock Interviews</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Voice Interview</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Company-wise Prep</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Interview Feedback</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Communication Assessment</span></a></li>
+            </ul>
           </li>
-          <li class="sidebar-item">
-            <a href="#" class="coming-soon-trigger"><i class="fas fa-network-wired"></i> <span>Placement Hub</span></a>
+
+          <!-- Research Hub -->
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-book-open"></i>
+              <span>Research Hub</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#" class="coming-soon-trigger"><span>Research Paper AI</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Research Topic Generator</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Literature Review Gen</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Citation Generator</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>IEEE Formatter</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Journal Finder</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Plagiarism Checker</span></a></li>
+            </ul>
+          </li>
+
+          <!-- Internship Hub -->
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-briefcase"></i>
+              <span>Internship Hub</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#" class="coming-soon-trigger"><span>Internship Finder</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Recommendations</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Internship Tracker</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Application Tracker</span></a></li>
+            </ul>
+          </li>
+
+          <!-- Job Hub -->
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-user-tie"></i>
+              <span>Job Hub</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#" class="coming-soon-trigger"><span>Job Matching</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Resume vs JD Match</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Job Referrals</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Hiring Challenges</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Application Tracker</span></a></li>
+            </ul>
+          </li>
+
+          <!-- Placement Hub -->
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-award"></i>
+              <span>Placement Hub</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#" class="coming-soon-trigger"><span>Aptitude Practice</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Logical Reasoning</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Verbal Ability</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Technical MCQs</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Mock Tests</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Readiness Score</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Skill Assessments</span></a></li>
+            </ul>
+          </li>
+
+          <!-- AI Productivity -->
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-wand-magic-sparkles"></i>
+              <span>AI Productivity</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#" class="coming-soon-trigger"><span>AI Chat Assistant</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Email Writer</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>SOP Generator</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>LOR Generator</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>LinkedIn Post Gen</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Content Writer</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Presentation Writer</span></a></li>
+            </ul>
+          </li>
+
+          <!-- Analytics -->
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-chart-line"></i>
+              <span>Analytics</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#" class="coming-soon-trigger"><span>Learning Progress</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Interview Progress</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Resume Score</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Skill Growth</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Placement Dashboard</span></a></li>
+            </ul>
+          </li>
+
+          <!-- Community -->
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-users"></i>
+              <span>Community</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#" class="coming-soon-trigger"><span>Discussion Forum</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Study Groups</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Mentor Connect</span></a></li>
+              <li><a href="#" class="coming-soon-trigger"><span>Peer Learning</span></a></li>
+            </ul>
           </li>
         </ul>
       </nav>
@@ -149,176 +408,480 @@
     <!-- Main Content Area -->
     <main class="main-content">
 
-      <!-- Top Header -->
-      <div class="dashboard-header">
-
-        <div class="user-welcome">
-          <h1 id="welcome-name">Welcome back, John!</h1>
-          <p>Here is an overview of your progress and tools.</p>
-        </div>
-
-        <div class="dashboard-actions">
-          <div class="glass"
-            style="padding: 0.6rem 1.2rem; font-size: 0.9rem; font-weight: 700; border-radius: 12px; display: flex; align-items: center; gap: 6px; color: var(--primary);">
-            <i class="fas fa-bullseye"></i> Software Engineer
+      <!-- Top Section: Welcome Banner -->
+      <div class="welcome-banner glass-card">
+        <div class="welcome-banner-content">
+          <h1 id="welcome-greeting-text">Good Afternoon, Ashish</h1>
+          <p>Continue your learning journey and track your placement readiness.</p>
+          <div class="banner-profile-completion">
+            <div class="banner-completion-text">Profile Completion: <span class="completion-val">85%</span></div>
+            <div class="progress-bar-linear banner-bar">
+              <div class="progress-fill-linear" style="width: 85%;"></div>
+            </div>
           </div>
+        </div>
+        <div class="banner-actions">
+          <button class="banner-btn btn-primary coming-soon-trigger">Continue Learning</button>
+          <button class="banner-btn btn-outline coming-soon-trigger">Resume Analysis</button>
+          <button class="banner-btn btn-outline coming-soon-trigger">Start Interview</button>
         </div>
       </div>
 
-      <!-- Stats Grid -->
-      <div class="dashboard-grid">
-        <!-- Card 1 -->
-        <div class="widget-card glass">
-          <div class="widget-header">
-            <div class="widget-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--primary);">
-              <i class="fas fa-file-alt"></i>
-            </div>
-            <span class="widget-trend trend-up"><i class="fas fa-caret-up"></i> +12%</span>
-          </div>
-          <div class="widget-value" id="notes-generated-val" data-target="12">0</div>
-          <div class="widget-label">Notes Generated</div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="widget-card glass">
-          <div class="widget-header">
-            <div class="widget-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
-              <i class="fas fa-star"></i>
-            </div>
-            <span class="widget-trend trend-up"><i class="fas fa-caret-up"></i> +4%</span>
-          </div>
-          <div class="widget-value" id="resume-score-val" data-target="78">0%</div>
-          <div class="widget-label">Resume Score</div>
-        </div>
-
-        <!-- Card 3 -->
+      <!-- Stats Cards (Key Metrics Grid) -->
+      <div class="dashboard-grid key-metrics-grid">
+        <!-- Learning Score -->
         <div class="widget-card glass">
           <div class="widget-header">
             <div class="widget-icon" style="background: rgba(139, 92, 246, 0.1); color: var(--secondary);">
-              <i class="fas fa-video"></i>
+              <i class="fas fa-graduation-cap"></i>
             </div>
-            <span class="widget-trend trend-up"><i class="fas fa-check"></i> Finished</span>
+            <span class="widget-trend trend-up"><i class="fas fa-caret-up"></i> +8%</span>
           </div>
-          <div class="widget-value">3</div>
-          <div class="widget-label">Interviews Completed</div>
+          <div class="widget-value">82%</div>
+          <div class="widget-label">Learning Score</div>
         </div>
 
-        <!-- Card 4 -->
+        <!-- Resume Score -->
+        <div class="widget-card glass">
+          <div class="widget-header">
+            <div class="widget-icon" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">
+              <i class="fas fa-file-invoice"></i>
+            </div>
+            <span class="widget-trend trend-up"><i class="fas fa-caret-up"></i> +5</span>
+          </div>
+          <div class="widget-value">78/100</div>
+          <div class="widget-label">Resume Score</div>
+        </div>
+
+        <!-- Interview Score -->
+        <div class="widget-card glass">
+          <div class="widget-header">
+            <div class="widget-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+              <i class="fas fa-microphone"></i>
+            </div>
+            <span class="widget-trend trend-up"><i class="fas fa-caret-up"></i> +12%</span>
+          </div>
+          <div class="widget-value">74%</div>
+          <div class="widget-label">Interview Score</div>
+        </div>
+
+        <!-- Placement Readiness -->
+        <div class="widget-card glass">
+          <div class="widget-header">
+            <div class="widget-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--primary);">
+              <i class="fas fa-award"></i>
+            </div>
+            <span class="widget-trend trend-up"><i class="fas fa-caret-up"></i> +6%</span>
+          </div>
+          <div class="widget-value">80%</div>
+          <div class="widget-label">Placement Readiness</div>
+        </div>
+
+        <!-- Assignments Created -->
         <div class="widget-card glass">
           <div class="widget-header">
             <div class="widget-icon" style="background: rgba(6, 182, 212, 0.1); color: var(--cyan);">
-              <i class="fas fa-route"></i>
+              <i class="fas fa-folder-open"></i>
             </div>
-            <span class="widget-trend trend-up"><i class="fas fa-caret-up"></i> Active</span>
+            <span class="widget-trend">This Term</span>
           </div>
-          <div class="widget-value">85%</div>
-          <div class="widget-label">Career Progress</div>
+          <div class="widget-value">24</div>
+          <div class="widget-label">Assignments Created</div>
+        </div>
+
+        <!-- Research Papers -->
+        <div class="widget-card glass">
+          <div class="widget-header">
+            <div class="widget-icon" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <span class="widget-trend trend-up"><i class="fas fa-caret-up"></i> +1</span>
+          </div>
+          <div class="widget-value">6</div>
+          <div class="widget-label">Research Papers</div>
         </div>
       </div>
 
-      <!-- Main Panels Layout -->
-      <div class="panel-grid">
-
-        <!-- Left Side: AI Tool Cards -->
-        <div class="panel-card glass">
-          <h2 class="panel-title">AI Core Suites</h2>
-          <div class="tools-grid">
-            <!-- Tool Item 1 -->
-            <div class="tool-item glass">
-              <div class="tool-item-header">
-                <h3>Study Assistant</h3>
-                <span class="badge-soon">Coming Soon</span>
+      <!-- Main Panels Layout (3-Column System) -->
+      <div class="dashboard-layout-grid">
+        
+        <!-- COLUMN 1: Academic & Coding Journey -->
+        <div class="layout-column">
+          
+          <!-- Learning Progress Card -->
+          <div class="panel-card glass">
+            <h2 class="panel-title">Learning Progress</h2>
+            <div class="card-progress-section">
+              <div class="progress-info">
+                <span>Overall Learning Progress</span>
+                <span class="progress-percent">72%</span>
               </div>
-              <p>Prepare university summaries, resolve textbook questions instantly, and create customized revision
-                planners.</p>
-              <a href="#" class="tool-btn">Access Tool <i class="fas fa-arrow-right"></i></a>
+              <div class="progress-bar-linear">
+                <div class="progress-fill-linear" style="width: 72%;"></div>
+              </div>
             </div>
-
-            <!-- Tool Item 2 -->
-            <div class="tool-item glass">
-              <div class="tool-item-header">
-                <h3>Career Guide</h3>
-                <span class="badge-soon">Coming Soon</span>
-              </div>
-              <p>Establish tech roadmaps, identify skill gaps, and explore suggested coding project repositories.</p>
-              <a href="#" class="tool-btn">Access Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- Tool Item 3 -->
-            <div class="tool-item glass">
-              <div class="tool-item-header">
-                <h3>Resume Builder</h3>
-                <span class="badge-soon">Coming Soon</span>
-              </div>
-              <p>Construct clean professional ATS templates. Grade content and tailor bullets for target job cards.</p>
-              <a href="#" class="tool-btn">Access Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- Tool Item 4 -->
-            <div class="tool-item glass">
-              <div class="tool-item-header">
-                <h3>Interview Coach</h3>
-                <span class="badge-soon">Coming Soon</span>
-              </div>
-              <p>Conduct mock video practices. Receive grading on question-accuracy, coding speed, and volume dynamics.
-              </p>
-              <a href="#" class="tool-btn">Access Tool <i class="fas fa-arrow-right"></i></a>
+            <div class="compact-widget-list" style="margin-top: 1rem;">
+              <div class="compact-widget-item"><span>Notes Generated</span><strong>56</strong></div>
+              <div class="compact-widget-item"><span>MCQs Practiced</span><strong>420</strong></div>
+              <div class="compact-widget-item"><span>Assignments Created</span><strong>18</strong></div>
+              <div class="compact-widget-item"><span>PPTs Generated</span><strong>12</strong></div>
+              <div class="compact-widget-item"><span>Coding Problems Solved</span><strong>134</strong></div>
             </div>
           </div>
+
+          <!-- Coding Performance Card -->
+          <div class="panel-card glass">
+            <h2 class="panel-title">Coding Performance</h2>
+            <div class="compact-widget-list">
+              <div class="compact-widget-item"><span>DSA Questions Solved</span><strong>145</strong></div>
+              <div class="compact-widget-item"><span>Coding Assignments</span><strong>28</strong></div>
+              <div class="compact-widget-item"><span>Projects Completed</span><strong>6</strong></div>
+              <div class="compact-widget-item"><span>GitHub Portfolio Score</span><strong style="color:var(--primary);">80%</strong></div>
+            </div>
+          </div>
+
+          <!-- Research Activity Card -->
+          <div class="panel-card glass">
+            <h2 class="panel-title">Research Activity</h2>
+            <div class="compact-widget-list">
+              <div class="compact-widget-item"><span>Research Topics Generated</span><strong>15</strong></div>
+              <div class="compact-widget-item"><span>Literature Reviews</span><strong>7</strong></div>
+              <div class="compact-widget-item"><span>Research Papers Drafted</span><strong>4</strong></div>
+              <div class="compact-widget-item"><span>Citations Generated</span><strong>120</strong></div>
+            </div>
+          </div>
+
+          <!-- Active Courses Card -->
+          <div class="panel-card glass">
+            <h2 class="panel-title">Active Courses</h2>
+            <div class="active-courses-list">
+              <div class="course-progress-item">
+                <div class="course-info">
+                  <span class="course-name">Deep Learning Specialization</span>
+                  <span class="course-val">64%</span>
+                </div>
+                <div class="progress-bar-linear">
+                  <div class="progress-fill-linear" style="width: 64%; background: #8b5cf6;"></div>
+                </div>
+                <div class="course-meta">Next up: Neural Networks Basics</div>
+              </div>
+              <div class="course-progress-item">
+                <div class="course-info">
+                  <span class="course-name">Data Structures & Algorithms</span>
+                  <span class="course-val">82%</span>
+                </div>
+                <div class="progress-bar-linear">
+                  <div class="progress-fill-linear" style="width: 82%; background: #10b981;"></div>
+                </div>
+                <div class="course-meta">Next up: Graph Algorithms</div>
+              </div>
+              <div class="course-progress-item">
+                <div class="course-info">
+                  <span class="course-name">Database Management Systems</span>
+                  <span class="course-val">45%</span>
+                </div>
+                <div class="progress-bar-linear">
+                  <div class="progress-fill-linear" style="width: 45%; background: #3b82f6;"></div>
+                </div>
+                <div class="course-meta">Next up: SQL Joins & Indexes</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill Badges & Certificates Card -->
+          <div class="panel-card glass">
+            <h2 class="panel-title">Skills & Badges</h2>
+            <div class="skills-badges-list">
+              <div class="skill-badge-item">
+                <div class="badge-icon-wrapper" style="color: #ec4899; background: rgba(236, 72, 153, 0.1);">
+                  <i class="fab fa-python"></i>
+                </div>
+                <div class="badge-details">
+                  <div class="badge-title">Python Developer</div>
+                  <div class="badge-level">Advanced • Gold Badge</div>
+                </div>
+              </div>
+              <div class="skill-badge-item">
+                <div class="badge-icon-wrapper" style="color: #f59e0b; background: rgba(245, 158, 11, 0.1);">
+                  <i class="fas fa-database"></i>
+                </div>
+                <div class="badge-details">
+                  <div class="badge-title">SQL Specialist</div>
+                  <div class="badge-level">Intermediate • Silver Badge</div>
+                </div>
+              </div>
+              <div class="skill-badge-item">
+                <div class="badge-icon-wrapper" style="color: #06b6d4; background: rgba(6, 182, 212, 0.1);">
+                  <i class="fas fa-brain"></i>
+                </div>
+                <div class="badge-details">
+                  <div class="badge-title">Machine Learning</div>
+                  <div class="badge-level">Intermediate • Silver Badge</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        <!-- Right Side: Progress & Recent Activity -->
-        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <!-- COLUMN 2: Placement & Readiness (Flagship) -->
+        <div class="layout-column">
+          
+          <!-- Placement Readiness Score Card -->
+          <div class="panel-card glass flagship-card">
+            <h2 class="panel-title" style="margin-bottom: 0.5rem;">Placement Readiness Score</h2>
+            <div class="flagship-gauge-container">
+              <div class="circular-gauge" data-percent="82">
+                <div class="circular-gauge-inner">
+                  <span class="gauge-value">82%</span>
+                  <span class="gauge-label">Ready</span>
+                </div>
+              </div>
+            </div>
+            <div class="breakdown-list">
+              <div class="breakdown-item"><span>Resume</span><span class="breakdown-fill"><div class="fill-inner" style="width:78%;"></div></span><strong>78%</strong></div>
+              <div class="breakdown-item"><span>Interview</span><span class="breakdown-fill"><div class="fill-inner" style="width:84%;"></div></span><strong>84%</strong></div>
+              <div class="breakdown-item"><span>Coding</span><span class="breakdown-fill"><div class="fill-inner" style="width:80%;"></div></span><strong>80%</strong></div>
+              <div class="breakdown-item"><span>Aptitude</span><span class="breakdown-fill"><div class="fill-inner" style="width:75%;"></div></span><strong>75%</strong></div>
+              <div class="breakdown-item"><span>Projects</span><span class="breakdown-fill"><div class="fill-inner" style="width:90%;"></div></span><strong>90%</strong></div>
+            </div>
+          </div>
 
-          <!-- Profile Completion Card -->
+          <!-- Career Progress (Roadmap) -->
           <div class="panel-card glass">
-            <h2 class="panel-title">Profile Completion</h2>
-            <div class="progress-bar-linear">
-              <div class="progress-fill-linear" style="width: 75%;"></div>
+            <h2 class="panel-title">Career Progress</h2>
+            <div class="roadmap-container">
+              <div class="roadmap-goal">Goal: <strong>Machine Learning Engineer</strong></div>
+              <div class="roadmap-steps">
+                <div class="roadmap-group completed">
+                  <div class="group-title">Completed</div>
+                  <ul>
+                    <li><i class="fas fa-check-circle"></i> Python</li>
+                    <li><i class="fas fa-check-circle"></i> Statistics</li>
+                    <li><i class="fas fa-check-circle"></i> Machine Learning Basics</li>
+                  </ul>
+                </div>
+                <div class="roadmap-group in-progress">
+                  <div class="group-title">In Progress</div>
+                  <ul>
+                    <li><i class="far fa-circle"></i> Deep Learning</li>
+                  </ul>
+                </div>
+                <div class="roadmap-group upcoming">
+                  <div class="group-title">Upcoming</div>
+                  <ul>
+                    <li><i class="far fa-circle text-muted"></i> MLOps</li>
+                    <li><i class="far fa-circle text-muted"></i> AWS</li>
+                  </ul>
+                </div>
+              </div>
+              <button class="btn btn-secondary coming-soon-trigger" style="width:100%; margin-top: 0.8rem; padding: 0.5rem;">View Full Roadmap</button>
             </div>
-            <div class="progress-info" style="margin-bottom: 1.5rem;">
-              <span>75% Completed</span>
-              <span>25% to go</span>
+          </div>
+
+          <!-- Career Readiness Card -->
+          <div class="panel-card glass">
+            <h2 class="panel-title">Career Readiness</h2>
+            <div class="compact-widget-list" style="margin-bottom: 0.85rem;">
+              <div class="compact-widget-item"><span>Resume Score</span><strong>78/100</strong></div>
+              <div class="compact-widget-item"><span>ATS Compatibility</span><strong>82%</strong></div>
+              <div class="compact-widget-item"><span>LinkedIn Strength</span><strong>70%</strong></div>
+              <div class="compact-widget-item"><span>Skill Match</span><strong>75%</strong></div>
             </div>
-            <a href="/profile" class="btn btn-secondary"
-              style="width: 100%; border-radius: 12px; font-size: 0.9rem; padding: 0.7rem 1.5rem;">Complete Profile</a>
+            <div class="ai-suggestions">
+              <div class="suggestions-title"><i class="fas fa-wand-magic-sparkles"></i> Actionable Suggestions</div>
+              <ul class="suggestions-list">
+                <li><i class="fas fa-plus"></i> Add SQL Projects</li>
+                <li><i class="fas fa-plus"></i> Add TensorFlow Skills</li>
+                <li><i class="fas fa-plus"></i> Improve Resume Keywords</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Recommended Internships Card -->
+          <div class="panel-card glass">
+            <h2 class="panel-title">Recommended Internships</h2>
+            <div class="internships-list">
+              <div class="internship-item">
+                <div class="internship-company-logo" style="background: rgba(66, 133, 244, 0.1); color: #4285f4;">
+                  <i class="fab fa-google"></i>
+                </div>
+                <div class="internship-details">
+                  <div class="internship-role">Machine Learning Intern</div>
+                  <div class="internship-meta">Google • Bangalore • 92% Match</div>
+                </div>
+                <span class="internship-apply-badge coming-soon-trigger">Apply</span>
+              </div>
+              <div class="internship-item">
+                <div class="internship-company-logo" style="background: rgba(0, 164, 240, 0.1); color: #00a4f0;">
+                  <i class="fab fa-microsoft"></i>
+                </div>
+                <div class="internship-details">
+                  <div class="internship-role">Data Science Intern</div>
+                  <div class="internship-meta">Microsoft • Hyderabad • 85% Match</div>
+                </div>
+                <span class="internship-apply-badge coming-soon-trigger">Apply</span>
+              </div>
+              <div class="internship-item">
+                <div class="internship-company-logo" style="background: rgba(24, 119, 242, 0.1); color: #1877f2;">
+                  <i class="fab fa-facebook-f"></i>
+                </div>
+                <div class="internship-details">
+                  <div class="internship-role">AI Research Assistant</div>
+                  <div class="internship-meta">Meta • Mumbai • 80% Match</div>
+                </div>
+                <span class="internship-apply-badge coming-soon-trigger">Apply</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- COLUMN 3: Applications & Productivity Actions -->
+        <div class="layout-column">
+          
+          <!-- Interview Preparation -->
+          <div class="panel-card glass">
+            <h2 class="panel-title">Interview Preparation</h2>
+            <div class="compact-widget-list" style="margin-bottom: 0.8rem;">
+              <div class="compact-widget-item"><span>Mock Interviews Completed</span><strong>12</strong></div>
+              <div class="compact-widget-item"><span>HR Score</span><strong>84%</strong></div>
+              <div class="compact-widget-item"><span>Technical Score</span><strong>72%</strong></div>
+              <div class="compact-widget-item"><span>Communication Score</span><strong>79%</strong></div>
+            </div>
+            <button class="btn btn-secondary coming-soon-trigger" style="width:100%; padding: 0.5rem;">Start New Interview</button>
+          </div>
+
+          <!-- Applications Overview (Internships & Jobs) -->
+          <div class="panel-card glass">
+            <h2 class="panel-title">Applications Overview</h2>
+            <div class="application-summary-grid">
+              <div class="app-metric-item"><strong>8</strong><span>Internships</span></div>
+              <div class="app-metric-item"><strong>14</strong><span>Jobs</span></div>
+              <div class="app-metric-item"><strong>4</strong><span>Shortlisted</span></div>
+              <div class="app-metric-item"><strong>2</strong><span>Interviews</span></div>
+            </div>
+            <div class="recent-applications-list" style="margin-top: 1rem;">
+              <div class="recent-app-item">
+                <div class="app-details-header">
+                  <strong>Data Analyst Intern</strong>
+                  <span class="status-badge" style="background:rgba(59, 130, 246, 0.15); color:#3b82f6;">Applied</span>
+                </div>
+                <div class="app-details-meta">Applied 2 Days Ago</div>
+              </div>
+              <div class="recent-app-item">
+                <div class="app-details-header">
+                  <strong>ML Intern</strong>
+                  <span class="status-badge" style="background:rgba(245, 158, 11, 0.15); color:var(--primary);">Under Review</span>
+                </div>
+                <div class="app-details-meta">In Evaluation Queue</div>
+              </div>
+              <div class="recent-app-item">
+                <div class="app-details-header">
+                  <strong>Software Engineer</strong>
+                  <span class="status-badge" style="background:rgba(16, 185, 129, 0.15); color:#10b981;">Scheduled</span>
+                </div>
+                <div class="app-details-meta">Interview Scheduled</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions Grid -->
+          <div class="panel-card glass">
+            <h2 class="panel-title">Quick Actions</h2>
+            <div class="quick-links-grid">
+              <a href="#" class="quick-link-item coming-soon-trigger"><i class="fas fa-file-alt"></i><span>Generate Notes</span></a>
+              <a href="#" class="quick-link-item coming-soon-trigger"><i class="fas fa-file-powerpoint"></i><span>Create PPT</span></a>
+              <a href="#" class="quick-link-item coming-soon-trigger"><i class="fas fa-file-edit"></i><span>Create Assignment</span></a>
+              <a href="#" class="quick-link-item coming-soon-trigger"><i class="fas fa-tasks"></i><span>Generate MCQs</span></a>
+              <a href="#" class="quick-link-item coming-soon-trigger"><i class="fas fa-file-invoice"></i><span>Build Resume</span></a>
+              <a href="#" class="quick-link-item coming-soon-trigger"><i class="fas fa-check-double"></i><span>Check ATS Score</span></a>
+              <a href="#" class="quick-link-item coming-soon-trigger"><i class="fas fa-microphone"></i><span>Start Interview</span></a>
+              <a href="#" class="quick-link-item coming-soon-trigger"><i class="fas fa-brain"></i><span>Research Paper AI</span></a>
+              <a href="#" class="quick-link-item coming-soon-trigger"><i class="fas fa-code"></i><span>Coding Assistant</span></a>
+              <a href="#" class="quick-link-item coming-soon-trigger"><i class="fas fa-briefcase"></i><span>Apply for Internship</span></a>
+            </div>
+          </div>
+
+          <!-- Recommended Actions Card -->
+          <div class="panel-card glass">
+            <h2 class="panel-title">Recommended Actions</h2>
+            <div class="recommendations-list">
+              <div class="recommend-item"><input type="checkbox" id="rec-1" checked disabled><label for="rec-1">Complete Deep Learning Module</label></div>
+              <div class="recommend-item"><input type="checkbox" id="rec-2" disabled><label for="rec-2">Improve ATS Score by Adding Keywords</label></div>
+              <div class="recommend-item"><input type="checkbox" id="rec-3" disabled><label for="rec-3">Take Technical Mock Interview</label></div>
+              <div class="recommend-item"><input type="checkbox" id="rec-4" disabled><label for="rec-4">Solve 10 Aptitude Questions</label></div>
+              <div class="recommend-item"><input type="checkbox" id="rec-5" disabled><label for="rec-5">Apply for Recommended Internship</label></div>
+            </div>
           </div>
 
           <!-- Recent Activity Card -->
           <div class="panel-card glass">
             <h2 class="panel-title">Recent Activity</h2>
             <div class="activity-list">
-              <!-- Item 1 -->
-              <div class="activity-item">
-                <div class="activity-dot"></div>
-                <div class="activity-details">
-                  <p>Uploaded Resume: John_Doe_Resume_v2.pdf</p>
-                  <div class="activity-time">2 hours ago</div>
-                </div>
-              </div>
-              <!-- Item 2 -->
-              <div class="activity-item">
-                <div class="activity-dot" style="background: var(--secondary); box-shadow: 0 0 8px var(--secondary);">
-                </div>
-                <div class="activity-details">
-                  <p>Completed Data Structures Mock Interview</p>
-                  <div class="activity-time">Yesterday</div>
-                </div>
-              </div>
-              <!-- Item 3 -->
-              <div class="activity-item">
-                <div class="activity-dot" style="background: var(--cyan); box-shadow: 0 0 8px var(--cyan);"></div>
-                <div class="activity-details">
-                  <p>Asked Study Assistant about React Hooks</p>
-                  <div class="activity-time">2 days ago</div>
-                </div>
-              </div>
+              <div class="activity-item"><div class="activity-dot"></div><div class="activity-details"><p>Generated ML Notes</p></div></div>
+              <div class="activity-item"><div class="activity-dot" style="background:#10b981; box-shadow: 0 0 5px #10b981;"></div><div class="activity-details"><p>Completed HR Interview</p></div></div>
+              <div class="activity-item"><div class="activity-dot" style="background:#3b82f6; box-shadow: 0 0 5px #3b82f6;"></div><div class="activity-details"><p>Created Resume</p></div></div>
+              <div class="activity-item"><div class="activity-dot" style="background:#ec4899; box-shadow: 0 0 5px #ec4899;"></div><div class="activity-details"><p>Generated Research Paper</p></div></div>
+              <div class="activity-item"><div class="activity-dot" style="background:#f59e0b; box-shadow: 0 0 5px #f59e0b;"></div><div class="activity-details"><p>Solved DSA Assignment</p></div></div>
+              <div class="activity-item"><div class="activity-dot" style="background:#06b6d4; box-shadow: 0 0 5px #06b6d4;"></div><div class="activity-details"><p>Applied for Internship</p></div></div>
             </div>
           </div>
 
         </div>
 
       </div>
+
+      <!-- Dashboard Footer -->
+      <footer class="dashboard-footer">
+        <div class="footer-top-row">
+          <div class="footer-brand-col">
+            <a href="/" class="footer-brand-logo">
+              <img src="assets/logo.png" alt="Adyapan AI Logo">
+              <span>Adyapan AI</span>
+            </a>
+            <p class="brand-tagline">Empowering students with AI-driven learning, automated coding paths, resume scoring, and career intelligence.</p>
+            <div class="brand-social-links">
+              <a href="#" class="coming-soon-trigger"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="coming-soon-trigger"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="coming-soon-trigger"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <div class="footer-links-grid">
+            <div class="footer-links-col">
+              <h3>Learning Hub</h3>
+              <ul>
+                <li><a href="#" class="coming-soon-trigger">Study Assistant</a></li>
+                <li><a href="#" class="coming-soon-trigger">Notes Generator</a></li>
+                <li><a href="#" class="coming-soon-trigger">MCQ Generator</a></li>
+                <li><a href="#" class="coming-soon-trigger">PDF Summarizer</a></li>
+              </ul>
+            </div>
+            <div class="footer-links-col">
+              <h3>Coding Hub</h3>
+              <ul>
+                <li><a href="#" class="coming-soon-trigger">Coding Assistant</a></li>
+                <li><a href="#" class="coming-soon-trigger">DSA Practice</a></li>
+                <li><a href="#" class="coming-soon-trigger">Coding Challenges</a></li>
+                <li><a href="#" class="coming-soon-trigger">Project Ideas</a></li>
+              </ul>
+            </div>
+            <div class="footer-links-col">
+              <h3>Placement Hub</h3>
+              <ul>
+                <li><a href="#" class="coming-soon-trigger">Resume Builder</a></li>
+                <li><a href="#" class="coming-soon-trigger">ATS Checker</a></li>
+                <li><a href="#" class="coming-soon-trigger">Mock Interview</a></li>
+                <li><a href="#" class="coming-soon-trigger">Career Roadmap</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom-row">
+          <div class="footer-copyright">&copy; 2026 Adyapan AI. All rights reserved.</div>
+          <div class="footer-meta">Built with ❤️ for students globally.</div>
+        </div>
+      </footer>
 
     </main>
 
@@ -331,8 +894,19 @@
     const storedName = localStorage.getItem('userName') || 'John Doe';
     const storedEmail = localStorage.getItem('userEmail') || 'john.doe@university.edu';
 
-    if (document.getElementById('welcome-name')) {
-      document.getElementById('welcome-name').innerText = `Welcome back, ${storedName}! 👋`;
+    function getGreetingHeader(name) {
+      const hr = new Date().getHours();
+      let greet = "Good Afternoon";
+      if (hr < 12) {
+        greet = "Good Morning";
+      } else if (hr >= 17) {
+        greet = "Good Evening";
+      }
+      return `${greet}, ${name}`;
+    }
+
+    if (document.getElementById('welcome-greeting-text')) {
+      document.getElementById('welcome-greeting-text').innerText = getGreetingHeader(storedName);
     }
     if (document.getElementById('dropdown-user-name-field')) {
       document.getElementById('dropdown-user-name-field').innerText = storedName;
@@ -346,7 +920,7 @@
       item.addEventListener('click', (e) => {
         e.preventDefault();
         if (typeof showNotification === 'function') {
-          showNotification(`${item.innerText.trim()} will be available in the upcoming release! 🚀`);
+          showNotification(`${item.innerText.trim()} will be available in the upcoming release!`);
         }
       });
     });

@@ -123,16 +123,18 @@
     },
     {
       "id": 2,
-      "name": "Mentor Expert",
+      "name": "Mentor Pro",
       "email": "mentor@adyapan.ai",
       "password": "mentor",
       "role": "mentor",
       "profile": {
-        "skills": "Web Development, AI",
+        "skills": "Web Development, AI, Cloud Computing",
         "careerGoal": "Industry Mentor",
         "linkedin": "",
         "github": "",
-        "resume": null
+        "resume": null,
+        "bio": "Experienced mentor in cloud architecture and AI/ML pipelines.",
+        "sessionRate": "150"
       },
       "stats": {
         "notesGenerated": 0,
@@ -141,6 +143,120 @@
         "careerProgress": 100
       },
       "activities": []
+    }
+  ],
+  "sessions": [
+    {
+      "id": 1,
+      "mentorId": 2,
+      "studentName": "john",
+      "topic": "Machine Learning Foundations",
+      "dateTime": "2026-07-01T14:00",
+      "status": "scheduled"
+    },
+    {
+      "id": 2,
+      "mentorId": 2,
+      "studentName": "Node Explorer",
+      "topic": "System Design & Scalability",
+      "dateTime": "2026-07-03T16:30",
+      "status": "scheduled"
+    },
+    {
+      "id": 1782733901338,
+      "mentorId": 2,
+      "studentName": "john",
+      "topic": "System Design Fundamentals",
+      "dateTime": "2026-07-05T15:00",
+      "status": "scheduled"
+    }
+  ],
+  "mentorStudents": [
+    {
+      "id": 3,
+      "mentorId": 2,
+      "studentName": "john",
+      "goal": "Software Engineer",
+      "progress": 72,
+      "lastSession": "2026-06-25",
+      "status": "Active"
+    },
+    {
+      "id": 4,
+      "mentorId": 2,
+      "studentName": "Node Explorer",
+      "goal": "Backend Engineer",
+      "progress": 85,
+      "lastSession": "2026-06-28",
+      "status": "Active"
+    }
+  ],
+  "mentorReviews": [
+    {
+      "id": 1,
+      "mentorId": 2,
+      "studentName": "john",
+      "rating": 5,
+      "comment": "Incredible mentor! Explained neural networks so clearly with real-world analogies.",
+      "date": "2026-06-24"
+    },
+    {
+      "id": 2,
+      "mentorId": 2,
+      "studentName": "Node Explorer",
+      "rating": 4,
+      "comment": "Very practical approach to database sharding and index optimization. Learned a lot.",
+      "date": "2026-06-27"
+    }
+  ],
+  "chatMessages": [
+    {
+      "id": 1,
+      "roomId": "room-john",
+      "studentName": "john",
+      "sender": "student",
+      "text": "Hi Mentor, could you share the roadmap for ML deployment?",
+      "timestamp": "2026-06-28T10:05:00Z"
+    },
+    {
+      "id": 2,
+      "roomId": "room-john",
+      "studentName": "john",
+      "sender": "mentor",
+      "text": "Hello John! Sure, I'll send over the MLOps pipeline slides shortly.",
+      "timestamp": "2026-06-28T10:15:00Z"
+    },
+    {
+      "id": 3,
+      "roomId": "room-node",
+      "studentName": "Node Explorer",
+      "sender": "student",
+      "text": "Hey! Are we still on for our session on Graph Algorithms tomorrow?",
+      "timestamp": "2026-06-29T09:00:00Z"
+    },
+    {
+      "id": 1782733990636,
+      "roomId": "room-john",
+      "studentName": "john",
+      "sender": "mentor",
+      "text": "Hi John, how is your Machine Learning study going?",
+      "timestamp": "2026-06-29T11:53:10.636Z"
+    },
+    {
+      "id": 1782734666606,
+      "roomId": "room-john",
+      "studentName": "john",
+      "sender": "mentor",
+      "text": "I have updated my expertise. Let's do a session on Cloud Architecture.",
+      "timestamp": "2026-06-29T12:04:26.606Z"
+    },
+    {
+      "id": 1782736753037,
+      "roomId": "room-john",
+      "studentName": "john",
+      "sender": "mentor",
+      "text": "Hiii",
+      "timestamp": "2026-06-29T12:39:13.037Z"
     }
   ]
 }
