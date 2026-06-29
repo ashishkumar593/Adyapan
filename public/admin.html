@@ -27,7 +27,7 @@
     <!-- Top Navbar -->
     <header class="dashboard-top-nav">
       <div class="top-nav-left">
-        <a href="/" class="dashboard-logo">
+        <a href="/admin" class="dashboard-logo">
           <img src="assets/logo.png" alt="Adyapan AI Logo">
           <span>Adyapan AI</span>
         </a>
@@ -93,25 +93,102 @@
       <nav style="flex-grow:1;">
         <ul class="sidebar-menu">
           <li class="sidebar-item active" data-section="overview">
-            <a href="#overview"><i class="fas fa-chart-pie"></i> <span>Overview</span></a>
+            <a href="#overview"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
           </li>
-          <li class="sidebar-item" data-section="users">
-            <a href="#users"><i class="fas fa-users"></i> <span>Users Management</span></a>
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-user-graduate"></i>
+              <span>Students</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#users" onclick="adminNav('users')"><span>All Students</span></a></li>
+              <li><a href="#reports" onclick="adminNav('reports')"><span>Student Reports</span></a></li>
+              <li><a href="#reports" onclick="adminNav('reports')"><span>AI Usage</span></a></li>
+            </ul>
           </li>
-          <li class="sidebar-item" data-section="mentors">
-            <a href="#mentors"><i class="fas fa-chalkboard-teacher"></i> <span>Mentors</span></a>
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-chalkboard-teacher"></i>
+              <span>Mentors</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#mentors" onclick="adminNav('mentors')"><span>All Mentors</span></a></li>
+              <li><a href="#mentors" onclick="adminNav('mentors')"><span>Assign Students</span></a></li>
+              <li><a href="#mentors" onclick="adminNav('mentors')"><span>Mentor Performance</span></a></li>
+            </ul>
           </li>
-          <li class="sidebar-item" data-section="premium">
-            <a href="#premium"><i class="fas fa-crown"></i> <span>Premium Manage</span></a>
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-crown"></i>
+              <span>Subscriptions</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#premium" onclick="adminNav('premium')"><span>Premium Users</span></a></li>
+              <li><a href="#premium" onclick="adminNav('premium')"><span>Plans</span></a></li>
+              <li><a href="#revenue" onclick="adminNav('revenue')"><span>Transactions</span></a></li>
+            </ul>
           </li>
-          <li class="sidebar-item" data-section="revenue">
-            <a href="#revenue"><i class="fas fa-indian-rupee-sign"></i> <span>Revenue &amp; Payments</span></a>
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-indian-rupee-sign"></i>
+              <span>Revenue</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#revenue" onclick="adminNav('revenue')"><span>Revenue Dashboard</span></a></li>
+              <li><a href="#revenue" onclick="adminNav('revenue')"><span>Payment Reports</span></a></li>
+            </ul>
           </li>
-          <li class="sidebar-item" data-section="reports">
-            <a href="#reports"><i class="fas fa-flag"></i> <span>Reports &amp; Flags</span></a>
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-ticket-alt"></i>
+              <span>Coupons</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#settings" onclick="adminNav('settings')"><span>Create Coupon</span></a></li>
+              <li><a href="#settings" onclick="adminNav('settings')"><span>Active Coupons</span></a></li>
+              <li><a href="#reports" onclick="adminNav('reports')"><span>Coupon Analytics</span></a></li>
+            </ul>
           </li>
-          <li class="sidebar-item" data-section="settings">
-            <a href="#settings"><i class="fas fa-sliders"></i> <span>Platform Settings</span></a>
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-brain"></i>
+              <span>AI Analytics</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#reports" onclick="adminNav('reports')"><span>AI Usage</span></a></li>
+              <li><a href="#reports" onclick="adminNav('reports')"><span>Token Usage</span></a></li>
+              <li><a href="#reports" onclick="adminNav('reports')"><span>Escalated Queries</span></a></li>
+            </ul>
+          </li>
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-briefcase"></i>
+              <span>Jobs &amp; Placements</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#settings" onclick="adminNav('settings')"><span>Job Listings</span></a></li>
+              <li><a href="#settings" onclick="adminNav('settings')"><span>Internship Listings</span></a></li>
+              <li><a href="#reports" onclick="adminNav('reports')"><span>Placement Reports</span></a></li>
+            </ul>
+          </li>
+          <li class="sidebar-item has-submenu">
+            <a href="#" class="submenu-toggle">
+              <i class="fas fa-headset"></i>
+              <span>Support</span>
+              <i class="fas fa-chevron-down submenu-arrow"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="#reports" onclick="adminNav('reports')"><span>Student Queries</span></a></li>
+              <li><a href="#reports" onclick="adminNav('reports')"><span>Mentor Queries</span></a></li>
+              <li><a href="#reports" onclick="adminNav('reports')"><span>Support Tickets</span></a></li>
+            </ul>
           </li>
         </ul>
       </nav>

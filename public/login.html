@@ -151,6 +151,12 @@
       grid-column: span 2;
     }
 
+    #forgot-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
     .auth-header {
       margin-bottom: 0.75rem;
       text-align: center;
@@ -413,6 +419,12 @@
           <p>Sign up now to start learning with AI</p>
         </div>
 
+        <!-- Forgot Password Header (Hidden by default) -->
+        <div class="auth-header" id="forgot-header" style="display: none;">
+          <h1>Reset Password</h1>
+          <p>Verify the OTP sent to your email before choosing a new password</p>
+        </div>
+
         <!-- Login Form -->
         <form class="auth-form" id="login-form">
           <!-- Email -->
@@ -438,8 +450,11 @@
             <label class="remember-me">
               <input type="checkbox"> Remember me
             </label>
-            <a href="#" class="forgot-link">Forgot password?</a>
+            <a href="#" class="forgot-link" id="link-to-forgot">Forgot password?</a>
           </div>
+
+          <div class="form-group" id="login-error-msg"
+            style="color: #ef4444; font-size: 0.85rem; font-weight: 600; display: none;"></div>
 
           <!-- Submit -->
           <button type="submit" class="btn btn-primary auth-submit-btn">Login <i
@@ -469,6 +484,52 @@
 
           <div class="auth-footer">
             Don't have an account? <a href="#" id="link-to-register">Register here</a>
+          </div>
+        </form>
+
+        <!-- Forgot Password Form (Hidden by default) -->
+        <form class="auth-form" id="forgot-form" style="display: none;">
+          <div class="form-group">
+            <label for="forgot-email">Email Address</label>
+            <div class="input-wrapper">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="forgot-email" class="auth-input" placeholder="you@university.edu" required>
+            </div>
+          </div>
+
+          <div class="form-group" id="forgot-otp-group" style="display: none;">
+            <label for="forgot-otp">Email OTP</label>
+            <div class="input-wrapper">
+              <i class="fas fa-shield-alt"></i>
+              <input type="text" id="forgot-otp" class="auth-input" placeholder="6-digit OTP" inputmode="numeric"
+                maxlength="6">
+            </div>
+          </div>
+
+          <div class="form-group" id="forgot-password-group" style="display: none;">
+            <label for="forgot-password">New Password</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="forgot-password" class="auth-input" placeholder="New password">
+            </div>
+          </div>
+
+          <div class="form-group" id="forgot-confirm-password-group" style="display: none;">
+            <label for="forgot-confirm-password">Confirm New Password</label>
+            <div class="input-wrapper">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="forgot-confirm-password" class="auth-input" placeholder="Confirm new password">
+            </div>
+          </div>
+
+          <div class="form-group" id="forgot-message"
+            style="color: #ef4444; font-size: 0.85rem; font-weight: 600; display: none;"></div>
+
+          <button type="submit" class="btn btn-primary auth-submit-btn" id="forgot-submit-btn">Send OTP <i
+              class="fas fa-paper-plane"></i></button>
+
+          <div class="auth-footer">
+            Remember your password? <a href="#" id="forgot-back-to-login">Sign in</a>
           </div>
         </form>
 
@@ -600,15 +661,46 @@
 
     const loginHeader = document.getElementById('login-header');
     const registerHeader = document.getElementById('register-header');
+    const forgotHeader = document.getElementById('forgot-header');
 
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
+    const forgotForm = document.getElementById('forgot-form');
 
     const leftLogin = document.getElementById('auth-left-login');
     const leftRegister = document.getElementById('auth-left-register');
 
     const linkToRegister = document.getElementById('link-to-register');
     const linkToLogin = document.getElementById('link-to-login');
+    const linkToForgot = document.getElementById('link-to-forgot');
+    const forgotBackToLogin = document.getElementById('forgot-back-to-login');
+    const forgotOtpGroup = document.getElementById('forgot-otp-group');
+    const forgotPasswordGroup = document.getElementById('forgot-password-group');
+    const forgotConfirmPasswordGroup = document.getElementById('forgot-confirm-password-group');
+    const forgotSubmitBtn = document.getElementById('forgot-submit-btn');
+    const forgotEmailInput = document.getElementById('forgot-email');
+    const forgotOtpInput = document.getElementById('forgot-otp');
+    const forgotPasswordInput = document.getElementById('forgot-password');
+    const forgotConfirmPasswordInput = document.getElementById('forgot-confirm-password');
+    let forgotOtpSent = false;
+
+    const resetForgotPasswordForm = () => {
+      forgotOtpSent = false;
+      forgotForm.reset();
+      forgotEmailInput.disabled = false;
+      forgotOtpInput.required = false;
+      forgotPasswordInput.required = false;
+      forgotConfirmPasswordInput.required = false;
+      forgotOtpGroup.style.display = 'none';
+      forgotPasswordGroup.style.display = 'none';
+      forgotConfirmPasswordGroup.style.display = 'none';
+      forgotSubmitBtn.innerHTML = 'Send OTP <i class="fas fa-paper-plane"></i>';
+
+      const message = document.getElementById('forgot-message');
+      message.innerText = '';
+      message.style.color = '#ef4444';
+      message.style.display = 'none';
+    };
 
     const showLogin = (e) => {
       if (e) e.preventDefault();
@@ -616,9 +708,11 @@
 
       loginHeader.style.display = 'block';
       registerHeader.style.display = 'none';
+      forgotHeader.style.display = 'none';
 
       loginForm.style.display = 'flex';
       registerForm.style.display = 'none';
+      forgotForm.style.display = 'none';
 
       leftLogin.style.display = 'block';
       leftRegister.style.display = 'none';
@@ -632,9 +726,11 @@
 
       loginHeader.style.display = 'none';
       registerHeader.style.display = 'block';
+      forgotHeader.style.display = 'none';
 
       loginForm.style.display = 'none';
       registerForm.style.display = 'grid';
+      forgotForm.style.display = 'none';
 
       leftLogin.style.display = 'none';
       leftRegister.style.display = 'block';
@@ -642,13 +738,36 @@
       history.pushState(null, '', '/register');
     };
 
+    const showForgot = (e) => {
+      if (e) e.preventDefault();
+      resetForgotPasswordForm();
+      authContainer.classList.remove('register-mode');
+
+      loginHeader.style.display = 'none';
+      registerHeader.style.display = 'none';
+      forgotHeader.style.display = 'block';
+
+      loginForm.style.display = 'none';
+      registerForm.style.display = 'none';
+      forgotForm.style.display = 'flex';
+
+      leftLogin.style.display = 'block';
+      leftRegister.style.display = 'none';
+
+      history.pushState(null, '', '/forgot-password');
+    };
+
     // Event listeners
     linkToRegister.addEventListener('click', showRegister);
     linkToLogin.addEventListener('click', showLogin);
+    linkToForgot.addEventListener('click', showForgot);
+    forgotBackToLogin.addEventListener('click', showLogin);
 
     // Initial state check based on the URL path
     if (window.location.pathname === '/register') {
       showRegister();
+    } else if (window.location.pathname === '/forgot-password') {
+      showForgot();
     } else {
       showLogin();
     }
@@ -658,6 +777,10 @@
       e.preventDefault();
       const email = document.getElementById('login-email').value;
       const password = document.getElementById('login-password').value;
+      const errorMsg = document.getElementById('login-error-msg');
+
+      errorMsg.innerText = '';
+      errorMsg.style.display = 'none';
 
       fetch('/api/auth/login', {
         method: 'POST',
@@ -667,7 +790,8 @@
         .then(res => res.json())
         .then(data => {
           if (data.error) {
-            alert(`Login Failed: ${data.error}`);
+            errorMsg.innerText = data.error;
+            errorMsg.style.display = 'block';
             return;
           }
           localStorage.setItem('userEmail', data.email);
@@ -684,7 +808,91 @@
         })
         .catch(err => {
           console.error('Error logging in:', err);
-          alert('Server connection failed. Try again.');
+          errorMsg.innerText = 'Server connection failed. Try again.';
+          errorMsg.style.display = 'block';
+        });
+    });
+
+    // Forgot Password Form Submit
+    forgotForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('forgot-email').value;
+      const otp = document.getElementById('forgot-otp').value;
+      const newPassword = document.getElementById('forgot-password').value;
+      const confirmPassword = document.getElementById('forgot-confirm-password').value;
+      const message = document.getElementById('forgot-message');
+
+      message.innerText = '';
+      message.style.color = '#ef4444';
+      message.style.display = 'none';
+
+      if (!forgotOtpSent) {
+        fetch('/api/auth/request-password-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.error) {
+              message.innerText = data.error;
+              message.style.display = 'block';
+              return;
+            }
+
+            forgotOtpSent = true;
+            forgotEmailInput.disabled = true;
+            forgotOtpInput.required = true;
+            forgotPasswordInput.required = true;
+            forgotConfirmPasswordInput.required = true;
+            forgotOtpGroup.style.display = 'flex';
+            forgotPasswordGroup.style.display = 'flex';
+            forgotConfirmPasswordGroup.style.display = 'flex';
+            forgotSubmitBtn.innerHTML = 'Verify OTP & Reset <i class="fas fa-key"></i>';
+            message.innerText = data.message;
+            message.style.color = '#22c55e';
+            message.style.display = 'block';
+          })
+          .catch(err => {
+            console.error('Error sending OTP:', err);
+            message.innerText = 'Server connection failed. Try again.';
+            message.style.display = 'block';
+          });
+        return;
+      }
+
+      if (newPassword !== confirmPassword) {
+        message.innerText = 'Passwords do not match.';
+        message.style.display = 'block';
+        return;
+      }
+
+      fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, otp, newPassword })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.error) {
+            message.innerText = data.error;
+            message.style.display = 'block';
+            return;
+          }
+
+          message.innerText = data.message;
+          message.style.color = '#22c55e';
+          message.style.display = 'block';
+          resetForgotPasswordForm();
+          message.innerText = data.message;
+          message.style.color = '#22c55e';
+          message.style.display = 'block';
+        })
+        .catch(err => {
+          console.error('Error resetting password:', err);
+          message.innerText = 'Server connection failed. Try again.';
+          message.style.display = 'block';
         });
     });
 

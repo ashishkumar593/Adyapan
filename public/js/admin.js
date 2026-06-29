@@ -3,6 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initSidebar();
+  initSubmenuAccordions();
   initSectionNav();
   initFilterChips();
 });
@@ -48,6 +49,34 @@ function initSidebar() {
     if (sidebar && !sidebar.contains(e.target) && !menuToggle?.contains(e.target)) {
       sidebar.classList.remove('active');
     }
+  });
+}
+
+// Expandable Submenus (Accordion)
+function initSubmenuAccordions() {
+  const submenuToggles = document.querySelectorAll('.submenu-toggle');
+
+  submenuToggles.forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const parentItem = toggle.closest('.has-submenu');
+      const isOpen = parentItem.classList.contains('open');
+
+      document.querySelectorAll('.has-submenu').forEach(item => {
+        item.classList.remove('open');
+      });
+
+      if (!isOpen) {
+        parentItem.classList.add('open');
+
+        const layout = document.querySelector('.dashboard-layout');
+        if (layout && layout.classList.contains('collapsed')) {
+          layout.classList.remove('collapsed');
+        }
+      }
+    });
   });
 }
 

@@ -3,11 +3,13 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
+const crypto = require('crypto');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const DB_FILE = path.join(__dirname, 'db.json');
 const UPLOADS_DIR = path.join(__dirname, 'uploads');
+const passwordResetOtps = new Map();
 
 // Ensure uploads folder exists
 if (!fs.existsSync(UPLOADS_DIR)) {
@@ -65,6 +67,14 @@ function writeDatabase(data) {
   }
 }
 
+function createOtp() {
+  return crypto.randomInt(100000, 1000000).toString();
+}
+
+function sendPasswordResetOtp(email, otp) {
+  console.log(`Password reset OTP for ${email}: ${otp}`);
+}
+
 // Page Routes (serving HTML from public folder)
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
@@ -75,6 +85,10 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+app.get('/forgot-password', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
@@ -150,13 +164,83 @@ app.post('/api/auth/login', (req, res) => {
   }
 
   const db = readDatabase();
-  const user = db.users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
+  const user = db.users.find(u => u.email.toLowerCase() === email.toLowerCase());
 
   if (!user) {
-    return res.status(401).json({ error: 'Incorrect email or password.' });
+    return res.status(401).json({ error: 'No account found with this email address.' });
+  }
+
+  if (user.password !== password) {
+    return res.status(401).json({ error: 'Password does not match this email address.' });
   }
 
   res.json({ message: 'Login successful', email: user.email, name: user.name, role: user.role || 'student' });
+});
+
+// 2.1 API: Request Password Reset OTP
+app.post('/api/auth/request-password-otp', (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required.' });
+  }
+
+  const db = readDatabase();
+  const user = db.users.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+  if (!user) {
+    return res.status(404).json({ error: 'No account found with this email address.' });
+  }
+
+  const otp = createOtp();
+  passwordResetOtps.set(email.toLowerCase(), {
+    otp,
+    expiresAt: Date.now() + 10 * 60 * 1000
+  });
+  sendPasswordResetOtp(user.email, otp);
+
+  res.json({ message: 'OTP sent to your registered email address.' });
+});
+
+// 2.2 API: Reset Password with OTP
+app.post('/api/auth/reset-password', (req, res) => {
+  const { email, otp, newPassword } = req.body;
+
+  if (!email || !otp || !newPassword) {
+    return res.status(400).json({ error: 'Email, OTP, and new password are required.' });
+  }
+
+  if (newPassword.length < 6) {
+    return res.status(400).json({ error: 'New password must be at least 6 characters long.' });
+  }
+
+  const otpRecord = passwordResetOtps.get(email.toLowerCase());
+
+  if (!otpRecord) {
+    return res.status(400).json({ error: 'Please request an OTP first.' });
+  }
+
+  if (Date.now() > otpRecord.expiresAt) {
+    passwordResetOtps.delete(email.toLowerCase());
+    return res.status(400).json({ error: 'OTP expired. Please request a new OTP.' });
+  }
+
+  if (otpRecord.otp !== otp.trim()) {
+    return res.status(400).json({ error: 'Invalid OTP. Please check your email and try again.' });
+  }
+
+  const db = readDatabase();
+  const userIndex = db.users.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
+
+  if (userIndex === -1) {
+    return res.status(404).json({ error: 'No account found with this email address.' });
+  }
+
+  db.users[userIndex].password = newPassword;
+  writeDatabase(db);
+  passwordResetOtps.delete(email.toLowerCase());
+
+  res.json({ message: 'Password reset successful. You can now log in with your new password.' });
 });
 
 // 3. API: Get Profile Details
