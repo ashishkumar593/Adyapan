@@ -780,7 +780,6 @@ function loadMentorProfile() {
       setMpText('mp-display-name', m.name);
       setMpText('mp-display-email', m.email);
       setMpText('mp-display-expertise', p.skills ? p.skills.split(',')[0].trim() : 'Mentor');
-      setMpText('mp-session-rate', p.sessionRate ? `₹${p.sessionRate}/hr` : '₹—/hr');
       setMpText('mp-rank-badge', s.rank || 'Expert');
 
       // Avatar initials
@@ -802,7 +801,6 @@ function loadMentorProfile() {
       // Personal info
       setMpText('mpv-name',  m.name  || '—');
       setMpText('mpv-email', m.email || '—');
-      setMpText('mpv-rate',  p.sessionRate ? `₹${p.sessionRate}/hr` : '—');
       setMpText('mpv-rank',  s.rank  || '—');
       setMpText('mpv-bio',   p.bio   || 'No bio added yet.');
 
