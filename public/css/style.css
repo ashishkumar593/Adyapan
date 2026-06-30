@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root {
   --bg-dark: #080710;
@@ -16,7 +16,7 @@
   --primary-hover: #d97706;
   
   --gradient-main: linear-gradient(135deg, var(--primary), var(--secondary));
-  --font-title: 'Outfit', sans-serif;
+  --font-title: 'Crimson Text', serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
   
   --shadow-glow: 0 0 30px rgba(245, 158, 11, 0.2);

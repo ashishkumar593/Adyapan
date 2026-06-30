@@ -200,6 +200,11 @@ function initSmoothScroll() {
           top: targetElement.offsetTop - 80, // Offset for sticky header
           behavior: 'smooth'
         });
+      } else {
+        // If the target element doesn't exist on the current page (e.g. on login page),
+        // redirect to the landing page with the section anchor hash.
+        e.preventDefault();
+        window.location.href = '/' + targetId;
       }
     });
   });
