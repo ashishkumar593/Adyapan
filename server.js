@@ -105,6 +105,10 @@ app.get('/mentor', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'mentor.html'));
 });
 
+app.get('/profile', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'profile.html'));
+});
+
 // Backend API Endpoints
 
 // 1. API: Register

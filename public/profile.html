@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - Adyapan AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css?v=10">
+  <link rel="stylesheet" href="css/profile.css?v=1">
+  <script>
+    const role = localStorage.getItem('userRole');
+    if (role === 'admin') window.location.replace('/admin');
+    else if (role === 'mentor') window.location.replace('/mentor');
+  </script>
+</head>
+<body>
+<div class="dashboard-layout">
+
+  <!-- Top Navbar -->
+  <header class="dashboard-top-nav">
+    <div class="top-nav-left">
+      <a href="/dashboard" class="dashboard-logo">
+        <img src="assets/logo.png" alt="Adyapan AI Logo">
+        <span>Adyapan AI</span>
+      </a>
+      <div class="search-bar-wrapper">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" placeholder="Search notes, assignments, jobs, tools...">
+      </div>
+    </div>
+    <div class="top-nav-center">
+      <div class="nav-dropdown-wrapper">
+        <button class="top-nav-btn btn-generate nav-dropdown-toggle">
+          <i class="fas fa-plus"></i> Generate <i class="fas fa-chevron-down toggle-arrow"></i>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="#" class="coming-soon-trigger"><i class="far fa-file-alt"></i> Notes</a>
+          <a href="#" class="coming-soon-trigger"><i class="fas fa-tasks"></i> Assignment</a>
+          <a href="#" class="coming-soon-trigger"><i class="far fa-file-powerpoint"></i> PPT</a>
+          <a href="#" class="coming-soon-trigger"><i class="fas fa-list-ol"></i> MCQs</a>
+          <a href="#" class="coming-soon-trigger"><i class="far fa-newspaper"></i> Research Paper</a>
+          <a href="#" class="coming-soon-trigger"><i class="far fa-id-badge"></i> Resume</a>
+        </div>
+      </div>
+      <button class="top-nav-btn btn-interview coming-soon-trigger">
+        <i class="fas fa-microphone"></i> AI Interview
+      </button>
+      <div class="nav-dropdown-wrapper">
+        <button class="top-nav-btn btn-evaluate nav-dropdown-toggle">
+          <i class="fas fa-wand-magic-sparkles"></i> Evaluate <i class="fas fa-chevron-down toggle-arrow"></i>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="#" class="coming-soon-trigger"><i class="fas fa-star"></i> ATS Score</a>
+          <a href="#" class="coming-soon-trigger"><i class="fas fa-file-signature"></i> Resume Analysis</a>
+          <a href="#" class="coming-soon-trigger"><i class="fas fa-check-double"></i> Skill Assessment</a>
+          <a href="#" class="coming-soon-trigger"><i class="fas fa-chart-pie"></i> Placement Readiness</a>
+        </div>
+      </div>
+      <span class="nav-divider"></span>
+      <a href="#" class="top-nav-link coming-soon-trigger">Jobs</a>
+      <a href="#" class="top-nav-link coming-soon-trigger">Internships</a>
+    </div>
+    <div class="top-nav-right">
+      <button class="top-nav-btn btn-premium coming-soon-trigger"><i class="fas fa-crown"></i> Premium</button>
+      <button class="theme-toggle-btn" aria-label="Toggle Theme">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <div class="notification-wrapper">
+        <div class="notification-btn">
+          <i class="far fa-bell"></i>
+          <span class="notification-badge">2</span>
+        </div>
+        <div class="notification-dropdown">
+          <div class="notif-header"><span>Notifications</span><span class="mark-read">Mark all as read</span></div>
+          <div class="notif-list">
+            <div class="notif-item unread">
+              <div class="notif-icon" style="color:var(--primary);background:rgba(245,158,11,0.1);"><i class="fas fa-file-invoice"></i></div>
+              <div class="notif-content"><p class="notif-text">Resume Score Updated</p><span class="notif-time">2 mins ago</span></div>
+            </div>
+            <div class="notif-item unread">
+              <div class="notif-icon" style="color:#10b981;background:rgba(16,185,129,0.1);"><i class="fas fa-briefcase"></i></div>
+              <div class="notif-content"><p class="notif-text">New Internship Match</p><span class="notif-time">1 hour ago</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="user-profile-wrapper">
+        <div class="user-profile-btn"><i class="far fa-user-circle"></i></div>
+        <div class="profile-dropdown">
+          <div class="dropdown-user-header">
+            <div class="dropdown-avatar-circle"><i class="fas fa-user"></i></div>
+            <div class="dropdown-user-details">
+              <div class="dropdown-user-name" id="dropdown-user-name-field">John Doe</div>
+              <div class="dropdown-user-email" id="dropdown-user-email-field">john.doe@university.edu</div>
+            </div>
+          </div>
+          <div class="dropdown-actions-wrapper">
+            <a href="/profile" class="dropdown-action-btn">View Profile</a>
+            <a href="#" class="dropdown-action-btn coming-soon-trigger">Manage Account</a>
+          </div>
+          <div class="dropdown-divider"></div>
+          <ul class="dropdown-menu-list">
+            <li><a href="/profile"><i class="fas fa-user"></i> My Profile</a></li>
+            <li><a href="#" class="coming-soon-trigger"><i class="fas fa-chart-line"></i> Learning Progress</a></li>
+            <li><a href="#" class="coming-soon-trigger"><i class="fas fa-award"></i> Certificates</a></li>
+            <li class="menu-divider"></li>
+            <li><a href="#" class="coming-soon-trigger"><i class="fas fa-cog"></i> Settings</a></li>
+            <li><a href="#" class="coming-soon-trigger"><i class="fas fa-credit-card"></i> Billing</a></li>
+            <li class="menu-divider"></li>
+            <li><a href="/" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar (same as dashboard, Profile item active) -->
+  <aside class="sidebar">
+    <div class="sidebar-header" style="margin-bottom:0;">
+      <div class="sidebar-close"><i class="fas fa-times"></i></div>
+    </div>
+    <nav style="flex-grow:1;margin-top:0.5rem;">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item"><a href="/dashboard"><i class="fas fa-chart-pie"></i><span>Dashboard</span></a></li>
+        <li class="sidebar-item active"><a href="/profile"><i class="fas fa-user-circle"></i><span>My Profile</span></a></li>
+        <li class="sidebar-item has-submenu">
+          <a href="#" class="submenu-toggle"><i class="fas fa-graduation-cap"></i><span>Learning Hub</span><i class="fas fa-chevron-down submenu-arrow"></i></a>
+          <ul class="sidebar-submenu">
+            <li><a href="#" class="coming-soon-trigger"><span>Study Assistant</span></a></li>
+            <li><a href="#" class="coming-soon-trigger"><span>Notes Generator</span></a></li>
+            <li><a href="#" class="coming-soon-trigger"><span>MCQ Generator</span></a></li>
+            <li><a href="#" class="coming-soon-trigger"><span>PDF Summarizer</span></a></li>
+            <li><a href="#" class="coming-soon-trigger"><span>Flashcards</span></a></li>
+          </ul>
+        </li>
+        <li class="sidebar-item has-submenu">
+          <a href="#" class="submenu-toggle"><i class="fas fa-code"></i><span>Coding Hub</span><i class="fas fa-chevron-down submenu-arrow"></i></a>
+          <ul class="sidebar-submenu">
+            <li><a href="#" class="coming-soon-trigger"><span>Coding Assistant</span></a></li>
+            <li><a href="#" class="coming-soon-trigger"><span>DSA Practice</span></a></li>
+            <li><a href="#" class="coming-soon-trigger"><span>Coding Challenges</span></a></li>
+          </ul>
+        </li>
+        <li class="sidebar-item has-submenu">
+          <a href="#" class="submenu-toggle"><i class="fas fa-file-invoice"></i><span>Resume Hub</span><i class="fas fa-chevron-down submenu-arrow"></i></a>
+          <ul class="sidebar-submenu">
+            <li><a href="#" class="coming-soon-trigger"><span>Resume Builder</span></a></li>
+            <li><a href="#" class="coming-soon-trigger"><span>ATS Score Checker</span></a></li>
+            <li><a href="#" class="coming-soon-trigger"><span>Cover Letter Generator</span></a></li>
+          </ul>
+        </li>
+        <li class="sidebar-item has-submenu">
+          <a href="#" class="submenu-toggle"><i class="fas fa-microphone"></i><span>Interview Hub</span><i class="fas fa-chevron-down submenu-arrow"></i></a>
+          <ul class="sidebar-submenu">
+            <li><a href="#" class="coming-soon-trigger"><span>AI HR Interview</span></a></li>
+            <li><a href="#" class="coming-soon-trigger"><span>Mock Interviews</span></a></li>
+          </ul>
+        </li>
+        <li class="sidebar-item has-submenu">
+          <a href="#" class="submenu-toggle"><i class="fas fa-award"></i><span>Placement Hub</span><i class="fas fa-chevron-down submenu-arrow"></i></a>
+          <ul class="sidebar-submenu">
+            <li><a href="#" class="coming-soon-trigger"><span>Aptitude Practice</span></a></li>
+            <li><a href="#" class="coming-soon-trigger"><span>Mock Tests</span></a></li>
+            <li><a href="#" class="coming-soon-trigger"><span>Skill Assessments</span></a></li>
+          </ul>
+        </li>
+        <li class="sidebar-item has-submenu">
+          <a href="#" class="submenu-toggle"><i class="fas fa-briefcase"></i><span>Internship Hub</span><i class="fas fa-chevron-down submenu-arrow"></i></a>
+          <ul class="sidebar-submenu">
+            <li><a href="#" class="coming-soon-trigger"><span>Internship Finder</span></a></li>
+            <li><a href="#" class="coming-soon-trigger"><span>Application Tracker</span></a></li>
+          </ul>
+        </li>
+        <li class="sidebar-item has-submenu">
+          <a href="#" class="submenu-toggle"><i class="fas fa-chart-line"></i><span>Analytics</span><i class="fas fa-chevron-down submenu-arrow"></i></a>
+          <ul class="sidebar-submenu">
+            <li><a href="#" class="coming-soon-trigger"><span>Learning Progress</span></a></li>
+            <li><a href="#" class="coming-soon-trigger"><span>Skill Growth</span></a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Profile Hero Banner -->
+    <div class="profile-hero-banner glass">
+      <div class="profile-hero-left">
+        <div class="profile-avatar-ring" id="profile-avatar-ring">
+          <div class="profile-avatar-inner" id="profile-avatar-circle">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="profile-avatar-progress-ring">
+            <svg viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="54"/>
+              <circle class="ring-fill" id="avatar-ring-fill" cx="60" cy="60" r="54" stroke-dasharray="339.3" stroke-dashoffset="339.3"/>
+            </svg>
+          </div>
+        </div>
+        <div class="profile-hero-info">
+          <h1 class="profile-hero-name" id="profile-display-name">Loading...</h1>
+          <div class="profile-hero-meta">
+            <span id="profile-display-college"><i class="fas fa-university"></i> —</span>
+            <span id="profile-display-branch"><i class="fas fa-graduation-cap"></i> —</span>
+            <span id="profile-display-year"><i class="fas fa-calendar"></i> —</span>
+          </div>
+          <div class="profile-hero-badges">
+            <span class="profile-role-badge"><i class="fas fa-user-graduate"></i> Student</span>
+            <span class="profile-status-badge" id="profile-status-badge"><i class="fas fa-circle"></i> Active</span>
+          </div>
+        </div>
+      </div>
+      <div class="profile-hero-right">
+        <div class="profile-completion-block">
+          <div class="completion-label">Profile Completion</div>
+          <div class="completion-percent" id="profile-completion-pct">0%</div>
+          <div class="progress-bar-linear" style="width:200px;">
+            <div class="progress-fill-linear" id="profile-completion-bar" style="width:0%;"></div>
+          </div>
+        </div>
+        <button class="profile-edit-toggle-btn" id="profile-edit-toggle">
+          <i class="fas fa-pen"></i> Edit Profile
+        </button>
+        <a href="/dashboard" class="profile-back-btn">
+          <i class="fas fa-arrow-left"></i> Dashboard
+        </a>
+      </div>
+    </div>
+
+    <!-- Profile Stats Row -->
+    <div class="profile-stats-row">
+      <div class="profile-stat-card glass">
+        <div class="pstat-icon" style="color:#8b5cf6;background:rgba(139,92,246,0.1);"><i class="fas fa-graduation-cap"></i></div>
+        <div class="pstat-value" id="pstat-learning">82%</div>
+        <div class="pstat-label">Learning Score</div>
+      </div>
+      <div class="profile-stat-card glass">
+        <div class="pstat-icon" style="color:#3b82f6;background:rgba(59,130,246,0.1);"><i class="fas fa-file-invoice"></i></div>
+        <div class="pstat-value" id="pstat-resume">0</div>
+        <div class="pstat-label">Resume Score</div>
+      </div>
+      <div class="profile-stat-card glass">
+        <div class="pstat-icon" style="color:#10b981;background:rgba(16,185,129,0.1);"><i class="fas fa-microphone"></i></div>
+        <div class="pstat-value" id="pstat-interviews">0</div>
+        <div class="pstat-label">Interviews Done</div>
+      </div>
+      <div class="profile-stat-card glass">
+        <div class="pstat-icon" style="color:var(--primary);background:rgba(245,158,11,0.1);"><i class="fas fa-award"></i></div>
+        <div class="pstat-value" id="pstat-career">0%</div>
+        <div class="pstat-label">Career Progress</div>
+      </div>
+      <div class="profile-stat-card glass">
+        <div class="pstat-icon" style="color:#ec4899;background:rgba(236,72,153,0.1);"><i class="fas fa-file-alt"></i></div>
+        <div class="pstat-value" id="pstat-notes">0</div>
+        <div class="pstat-label">Notes Generated</div>
+      </div>
+    </div>
+
+    <!-- Main Profile Grid -->
+    <div class="profile-main-grid">
+
+      <!-- LEFT: Personal Info + Edit Form -->
+      <div class="profile-left-col">
+
+        <!-- Personal Info Card (View Mode) -->
+        <div class="panel-card glass" id="profile-view-card">
+          <h2 class="panel-title"><i class="fas fa-id-card" style="color:var(--primary);margin-right:0.5rem;"></i>Personal Information</h2>
+          <div class="profile-info-grid">
+            <div class="profile-info-row"><div class="pinfo-label">Full Name</div><div class="pinfo-value" id="view-name">—</div></div>
+            <div class="profile-info-row"><div class="pinfo-label">Email Address</div><div class="pinfo-value" id="view-email">—</div></div>
+            <div class="profile-info-row"><div class="pinfo-label">Phone Number</div><div class="pinfo-value" id="view-phone">—</div></div>
+            <div class="profile-info-row"><div class="pinfo-label">College / University</div><div class="pinfo-value" id="view-college">—</div></div>
+            <div class="profile-info-row"><div class="pinfo-label">Branch / Specialization</div><div class="pinfo-value" id="view-branch">—</div></div>
+            <div class="profile-info-row"><div class="pinfo-label">Academic Year</div><div class="pinfo-value" id="view-year">—</div></div>
+            <div class="profile-info-row"><div class="pinfo-label">Career Goal</div><div class="pinfo-value" id="view-career-goal">—</div></div>
+            <div class="profile-info-row"><div class="pinfo-label">LinkedIn</div><div class="pinfo-value" id="view-linkedin">—</div></div>
+            <div class="profile-info-row"><div class="pinfo-label">GitHub</div><div class="pinfo-value" id="view-github">—</div></div>
+            <div class="profile-info-row full"><div class="pinfo-label">Skills</div><div class="pinfo-value" id="view-skills">—</div></div>
+          </div>
+        </div>
+
+        <!-- Edit Profile Form (Hidden by default) -->
+        <div class="panel-card glass" id="profile-edit-card" style="display:none;">
+          <h2 class="panel-title"><i class="fas fa-pen" style="color:var(--primary);margin-right:0.5rem;"></i>Edit Profile</h2>
+          <form class="profile-edit-form" id="profile-form">
+            <div class="edit-form-grid">
+              <div class="edit-form-group">
+                <label>Full Name</label>
+                <div class="edit-input-wrap"><i class="fas fa-user"></i><input type="text" id="edit-name" placeholder="Your full name"></div>
+              </div>
+              <div class="edit-form-group">
+                <label>Phone Number</label>
+                <div class="edit-input-wrap"><i class="fas fa-phone"></i><input type="tel" id="edit-phone" placeholder="9876543210"></div>
+              </div>
+              <div class="edit-form-group">
+                <label>College / University</label>
+                <div class="edit-input-wrap"><i class="fas fa-university"></i><input type="text" id="edit-college" placeholder="State University"></div>
+              </div>
+              <div class="edit-form-group">
+                <label>Branch / Specialization</label>
+                <div class="edit-input-wrap"><i class="fas fa-graduation-cap"></i><input type="text" id="edit-branch" placeholder="Computer Science"></div>
+              </div>
+              <div class="edit-form-group">
+                <label>Career Goal</label>
+                <div class="edit-input-wrap"><i class="fas fa-bullseye"></i><input type="text" id="edit-career-goal" placeholder="Software Engineer"></div>
+              </div>
+              <div class="edit-form-group">
+                <label>LinkedIn URL</label>
+                <div class="edit-input-wrap"><i class="fab fa-linkedin"></i><input type="url" id="edit-linkedin" placeholder="https://linkedin.com/in/..."></div>
+              </div>
+              <div class="edit-form-group">
+                <label>GitHub URL</label>
+                <div class="edit-input-wrap"><i class="fab fa-github"></i><input type="url" id="edit-github" placeholder="https://github.com/..."></div>
+              </div>
+              <div class="edit-form-group full">
+                <label>Skills <span style="color:var(--text-muted);font-size:0.7rem;">(comma-separated)</span></label>
+                <div class="edit-input-wrap"><i class="fas fa-tools"></i><input type="text" id="edit-skills" placeholder="Python, React, Machine Learning..."></div>
+              </div>
+            </div>
+            <div class="edit-form-actions">
+              <button type="submit" class="btn btn-primary profile-save-btn"><i class="fas fa-save"></i> Save Changes</button>
+              <button type="button" class="btn btn-secondary profile-cancel-btn" id="profile-cancel-btn"><i class="fas fa-times"></i> Cancel</button>
+            </div>
+            <div class="profile-save-message" id="profile-save-msg" style="display:none;"></div>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Resume + Skills + Activity -->
+      <div class="profile-right-col">
+
+        <!-- Resume Upload Card -->
+        <div class="panel-card glass">
+          <h2 class="panel-title"><i class="fas fa-file-pdf" style="color:#ef4444;margin-right:0.5rem;"></i>Resume</h2>
+
+          <!-- No resume state -->
+          <div id="resume-empty-state" class="resume-empty-state">
+            <div class="resume-empty-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <p>No resume uploaded yet</p>
+            <span>Upload your resume to get an ATS score and job match analysis</span>
+          </div>
+
+          <!-- Has resume state -->
+          <div id="resume-uploaded-state" class="resume-uploaded-state" style="display:none;">
+            <div class="resume-file-card">
+              <div class="resume-file-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="resume-file-details">
+                <div class="resume-file-name" id="resume-filename">resume.pdf</div>
+                <div class="resume-file-meta" id="resume-filemeta">0 KB</div>
+              </div>
+              <div class="resume-ats-badge" id="resume-ats-score">
+                <span id="ats-score-val">—</span>
+                <small>ATS</small>
+              </div>
+            </div>
+            <div class="resume-actions">
+              <a href="#" id="resume-download-btn" class="resume-action-btn btn-view"><i class="fas fa-download"></i> Download</a>
+              <button id="resume-remove-btn" class="resume-action-btn btn-remove"><i class="fas fa-trash"></i> Remove</button>
+            </div>
+          </div>
+
+          <!-- Upload form -->
+          <form id="resume-upload-form" class="resume-upload-form">
+            <label class="resume-upload-label" for="resume-file-input">
+              <i class="fas fa-plus"></i>
+              <span id="resume-upload-btn-text">Upload Resume (PDF / DOCX)</span>
+            </label>
+            <input type="file" id="resume-file-input" accept=".pdf,.doc,.docx" style="display:none;">
+            <div class="resume-upload-msg" id="resume-upload-msg" style="display:none;"></div>
+          </form>
+        </div>
+
+        <!-- Skills Visualization Card -->
+        <div class="panel-card glass">
+          <h2 class="panel-title"><i class="fas fa-tools" style="color:#06b6d4;margin-right:0.5rem;"></i>Skills</h2>
+          <div class="skills-chips-container" id="skills-chips">
+            <span class="skill-chip-empty">No skills added yet. Edit your profile to add skills.</span>
+          </div>
+        </div>
+
+        <!-- Social Links Card -->
+        <div class="panel-card glass">
+          <h2 class="panel-title"><i class="fas fa-link" style="color:#8b5cf6;margin-right:0.5rem;"></i>Social & Portfolio</h2>
+          <div class="social-links-list">
+            <a href="#" id="social-linkedin" class="social-profile-link linkedin-link" target="_blank">
+              <i class="fab fa-linkedin"></i>
+              <div class="social-link-info"><span class="social-link-name">LinkedIn</span><span class="social-link-url" id="linkedin-url-text">Not added</span></div>
+              <i class="fas fa-external-link-alt social-link-arrow"></i>
+            </a>
+            <a href="#" id="social-github" class="social-profile-link github-link" target="_blank">
+              <i class="fab fa-github"></i>
+              <div class="social-link-info"><span class="social-link-name">GitHub</span><span class="social-link-url" id="github-url-text">Not added</span></div>
+              <i class="fas fa-external-link-alt social-link-arrow"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Recent Activity Card -->
+        <div class="panel-card glass">
+          <h2 class="panel-title"><i class="fas fa-history" style="color:#10b981;margin-right:0.5rem;"></i>Recent Activity</h2>
+          <div class="activity-list" id="profile-activity-list">
+            <div class="activity-item">
+              <div class="activity-dot"></div>
+              <div class="activity-details"><p>Loading activities...</p></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script src="js/dashboard.js"></script>
+<script src="js/profile.js"></script>
+<script>
+  // Populate top-nav user info
+  const storedName  = localStorage.getItem('userName')  || 'Student';
+  const storedEmail = localStorage.getItem('userEmail') || '';
+  if (document.getElementById('dropdown-user-name-field'))  document.getElementById('dropdown-user-name-field').innerText  = storedName;
+  if (document.getElementById('dropdown-user-email-field')) document.getElementById('dropdown-user-email-field').innerText = storedEmail;
+
+  // Coming-soon triggers
+  document.querySelectorAll('.coming-soon-trigger').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      if (typeof showNotification === 'function')
+        showNotification(`${el.innerText.trim()} will be available in the upcoming release!`);
+    });
+  });
+
+  // Logout
+  const logoutBtn = document.getElementById('logout-btn');
+  if (logoutBtn) logoutBtn.addEventListener('click', () => localStorage.clear());
+</script>
+</body>
+</html>
