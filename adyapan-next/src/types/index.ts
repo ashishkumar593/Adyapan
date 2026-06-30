@@ -180,3 +180,15 @@ export interface Toast {
   id: string;
   message: string;
 }
+
+// ── Mock Auth ────────────────────────────────────────────────────
+export interface MockUser {
+  email: string;
+  password: string;
+  name: string;
+  role: UserRole;
+  college?: string;
+  branch?: string;
+  year?: string;
+  phone?: string;
+}

@@ -1,4 +1,10 @@
 @import "tailwindcss";
+@import "../styles/landing.css";
+@import "../styles/particles.css";
+@import "../styles/dashboard.css";
+@import "../styles/profile.css";
+@import "../styles/admin.css";
+@import "../styles/mentor.css";
 
 /* ── CSS Variables (preserved for glass/backdrop-filter utilities) ── */
 :root {
@@ -98,3 +104,11 @@ a { color: inherit; text-decoration: none; transition: var(--transition); }
   background-clip: text;
   display: inline-block;
 }
+
+.font-title { font-family: var(--font-title); }
+.bg-gradient-main { background: var(--gradient-main); }
+.shadow-glow { box-shadow: var(--shadow-glow); }
+.shadow-glow-strong { box-shadow: var(--shadow-glow-strong); }
+.border-primary { border-color: var(--primary); }
+.text-primary-accent { color: var(--primary); }
+.hover\:text-primary:hover { color: var(--primary); }

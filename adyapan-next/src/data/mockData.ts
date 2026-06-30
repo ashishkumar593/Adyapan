@@ -2,7 +2,7 @@ import type {
   Feature, WorkflowStep, Testimonial, FaqItem, StatItem,
   Course, SkillBadge, InternshipItem, Application,
   MentorStudent, MentorReview, Session,
-  AdminUser, AdminMentor,
+  AdminUser, AdminMentor, UserRole, StudentProfile, MockUser,
 } from "@/types";
 import { assets } from "./assets";
 
@@ -134,4 +134,149 @@ export const mockAdminUsers: AdminUser[] = [
 export const mockAdminMentors: AdminMentor[] = [
   { id: 1, name: "Mentor Pro",     expertise: "Web Dev, AI, Cloud",   students: 12, rating: 4.8, status: "Active" },
   { id: 2, name: "Dr. Kavita Ray", expertise: "Data Science, Python", students: 8,  rating: 4.6, status: "Active" },
+];
+
+// ── Mock Auth Users (frontend-only) ───────────────────────────────
+export const mockUsers: MockUser[] = [
+  { email: "admin@adyapan.ai",  password: "admin",  name: "System Admin", role: "admin" },
+  { email: "mentor@adyapan.ai", password: "mentor", name: "Mentor Pro",   role: "mentor" },
+  { email: "john@gmail.com",    password: "1234567890", name: "john",     role: "student", college: "lpu", branch: "CSE", year: "Graduated" },
+  { email: "node@adyapan.ai",   password: "nodesecretpassword", name: "Node Explorer", role: "student", college: "Node State University", branch: "Backend Engineering", year: "4" },
+];
+
+export const defaultStudentProfile: StudentProfile = {
+  name: "John Doe",
+  email: "john@gmail.com",
+  phone: "9876543210",
+  college: "State University",
+  branch: "Computer Science",
+  year: "3rd Year",
+  profile: {
+    careerGoal: "Software Engineer",
+    linkedin: "",
+    github: "",
+    skills: "Python, React, Machine Learning",
+    resume: null,
+  },
+  stats: {
+    resumeScore: 78,
+    interviewsCompleted: 12,
+    careerProgress: 72,
+    notesGenerated: 56,
+  },
+  activities: [
+    { id: 1, title: "Generated ML Notes", time: "2 hours ago" },
+    { id: 2, title: "Completed HR Interview", time: "Yesterday" },
+    { id: 3, title: "Created Resume", time: "3 days ago" },
+  ],
+};
+
+export const mentorStats = [
+  { label: "Total Students Assigned", value: "2",  iconClass: "fa-users",           color: "#f59e0b", bg: "rgba(245,158,11,0.12)",  trend: "+3", trendUp: true },
+  { label: "Active Students",         value: "2",  iconClass: "fa-user-check",      color: "#10b981", bg: "rgba(16,185,129,0.12)",  trendUp: true },
+  { label: "Students Needing Attention", value: "0", iconClass: "fa-exclamation-circle", color: "#ef4444", bg: "rgba(239,68,68,0.12)" },
+  { label: "Open AI Escalations",     value: "0",  iconClass: "fa-robot",           color: "#f59e0b", bg: "rgba(245,158,11,0.12)" },
+  { label: "Upcoming Interviews",     value: "3",  iconClass: "fa-microphone",      color: "#3b82f6", bg: "rgba(59,130,246,0.12)" },
+  { label: "Placement Ready Students", value: "1", iconClass: "fa-graduation-cap",  color: "#10b981", bg: "rgba(16,185,129,0.12)", trendUp: true },
+];
+
+export const adminStats = [
+  { label: "Total Users",     value: "4",    iconClass: "fa-users",              color: "#3b82f6", bg: "rgba(59,130,246,0.12)", trend: "+12%", trendUp: true },
+  { label: "Active Mentors",  value: "2",    iconClass: "fa-chalkboard-teacher", color: "#8b5cf6", bg: "rgba(139,92,246,0.12)", trend: "+1", trendUp: true },
+  { label: "Total Revenue",   value: "₹0",   iconClass: "fa-indian-rupee-sign",  color: "#f59e0b", bg: "rgba(245,158,11,0.12)", trend: "+0%", trendUp: true },
+  { label: "Sessions Today",  value: "0",    iconClass: "fa-video",              color: "#10b981", bg: "rgba(16,185,129,0.12)", trend: "Today" },
+];
+
+export const notifications = [
+  { text: "Resume Score Updated", time: "2 mins ago", iconClass: "fa-file-invoice", color: "var(--primary)", bg: "rgba(245,158,11,0.1)", unread: true },
+  { text: "New Internship Match", time: "1 hour ago", iconClass: "fa-briefcase", color: "#10b981", bg: "rgba(16,185,129,0.1)", unread: true },
+  { text: "Interview Reminder", time: "Tomorrow at 10:00 AM", iconClass: "fa-calendar-alt", color: "#3b82f6", bg: "rgba(59,130,246,0.1)", unread: false },
+  { text: "Placement Challenge Available", time: "2 days ago", iconClass: "fa-trophy", color: "#8b5cf6", bg: "rgba(139,92,246,0.1)", unread: false },
+];
+
+export interface SidebarItemConfig {
+  label: string;
+  icon: string;
+  href?: string;
+  section?: string;
+  children?: { label: string; href?: string; section?: string }[];
+}
+
+const hub = (icon: string, label: string, items: string[]) => ({
+  label, icon, children: items.map(i => ({ label: i })),
+});
+
+export const studentSidebarItems: SidebarItemConfig[] = [
+  { label: "Dashboard", icon: "fa-chart-pie", href: "/dashboard/student" },
+  hub("fa-graduation-cap", "Learning Hub", ["Study Assistant", "Notes Generator", "PPT Generator", "Assignment Generator", "MCQ Generator", "Question Bank Generator", "PDF Summarizer", "Flashcards", "Mind Maps", "Topic Explainer"]),
+  hub("fa-code", "Coding Hub", ["Coding Assistant", "Code Generator", "Code Debugger", "DSA Practice", "Coding Assignments", "Coding Challenges", "Project Ideas", "GitHub Portfolio Builder"]),
+  hub("fa-compass", "Career Hub", ["Career Guide", "Career Roadmap", "Skill Gap Analysis", "Domain Recommendation", "Certification Recommendation", "Learning Path Generator"]),
+  hub("fa-file-invoice", "Resume Hub", ["Resume Builder", "ATS Score Checker", "Resume Analyzer", "Resume Templates", "Cover Letter Generator", "LinkedIn Optimizer"]),
+  hub("fa-microphone", "Interview Hub", ["AI HR Interview", "AI Technical Interview", "Mock Interviews", "Voice Interview", "Company-wise Prep", "Interview Feedback", "Communication Assessment"]),
+  hub("fa-book-open", "Research Hub", ["Research Paper AI", "Research Topic Generator", "Literature Review Gen", "Citation Generator", "IEEE Formatter", "Journal Finder", "Plagiarism Checker"]),
+  hub("fa-briefcase", "Internship Hub", ["Internship Finder", "Recommendations", "Internship Tracker", "Application Tracker"]),
+  hub("fa-user-tie", "Job Hub", ["Job Matching", "Resume vs JD Match", "Job Referrals", "Hiring Challenges", "Application Tracker"]),
+  hub("fa-award", "Placement Hub", ["Aptitude Practice", "Logical Reasoning", "Verbal Ability", "Technical MCQs", "Mock Tests", "Readiness Score", "Skill Assessments"]),
+  hub("fa-wand-magic-sparkles", "AI Productivity", ["AI Chat Assistant", "Email Writer", "SOP Generator", "LOR Generator", "LinkedIn Post Gen", "Content Writer", "Presentation Writer"]),
+  hub("fa-chart-line", "Analytics", ["Learning Progress", "Interview Progress", "Resume Score", "Skill Growth", "Placement Dashboard"]),
+  hub("fa-users", "Community", ["Discussion Forum", "Study Groups", "Mentor Connect", "Peer Learning"]),
+  { label: "My Profile", icon: "fa-user", href: "/profile/student" },
+];
+
+export const mentorSidebarItems: SidebarItemConfig[] = [
+  { label: "Dashboard", icon: "fa-chart-pie", section: "overview" },
+  { label: "Students", icon: "fa-user-graduate", children: [
+    { label: "All Students", section: "students" },
+    { label: "Assigned Students" },
+    { label: "Student Profiles" },
+    { label: "Student History" },
+  ]},
+  { label: "Progress Tracking", icon: "fa-tasks", children: [
+    { label: "Learning Progress" }, { label: "Skill Progress" }, { label: "Placement Readiness" }, { label: "Performance Reports" },
+  ]},
+  { label: "AI Escalations", icon: "fa-exclamation-triangle", children: [
+    { label: "Unresolved Queries" }, { label: "AI Assistance Requests" }, { label: "Doubt Resolution Queue" }, { label: "Priority Cases" },
+  ]},
+  { label: "Interview Support", icon: "fa-microphone", children: [
+    { label: "Mock Interview Reviews", section: "feedback" }, { label: "Interview Feedback" }, { label: "Communication Reviews" }, { label: "Interview Reports" },
+  ]},
+  { label: "Career & Job Support", icon: "fa-briefcase", children: [
+    { label: "Resume Reviews" }, { label: "Job Guidance Requests" }, { label: "Internship Guidance" }, { label: "Placement Support" },
+  ]},
+  { label: "Student Communication", icon: "fa-comments", children: [
+    { label: "Messages", section: "messages" }, { label: "Live Chat" }, { label: "Announcements" }, { label: "Meeting Requests" },
+  ]},
+  { label: "Analytics", icon: "fa-chart-line", children: [
+    { label: "Student Analytics" }, { label: "Engagement Analytics" }, { label: "Placement Analytics" }, { label: "Mentor Performance", section: "performance" },
+  ]},
+  { label: "My Profile", icon: "fa-user", href: "/profile/mentor" },
+];
+
+export const adminSidebarItems: SidebarItemConfig[] = [
+  { label: "Dashboard", icon: "fa-chart-pie", section: "overview" },
+  { label: "Students", icon: "fa-user-graduate", children: [
+    { label: "All Students", section: "users" }, { label: "Student Reports", section: "reports" }, { label: "AI Usage", section: "reports" },
+  ]},
+  { label: "Mentors", icon: "fa-chalkboard-teacher", children: [
+    { label: "All Mentors", section: "mentors" }, { label: "Assign Students", section: "mentors" }, { label: "Mentor Performance", section: "mentors" },
+  ]},
+  { label: "Subscriptions", icon: "fa-crown", children: [
+    { label: "Premium Users", section: "premium" }, { label: "Plans", section: "premium" }, { label: "Transactions", section: "revenue" },
+  ]},
+  { label: "Revenue", icon: "fa-indian-rupee-sign", children: [
+    { label: "Revenue Dashboard", section: "revenue" }, { label: "Payment Reports", section: "revenue" },
+  ]},
+  { label: "Coupons", icon: "fa-ticket-alt", children: [
+    { label: "Create Coupon", section: "settings" }, { label: "Active Coupons", section: "settings" }, { label: "Coupon Analytics", section: "reports" },
+  ]},
+  { label: "AI Analytics", icon: "fa-brain", children: [
+    { label: "AI Usage", section: "reports" }, { label: "Token Usage", section: "reports" }, { label: "Escalated Queries", section: "reports" },
+  ]},
+  { label: "Jobs & Placements", icon: "fa-briefcase", children: [
+    { label: "Job Listings", section: "settings" }, { label: "Internship Listings", section: "settings" }, { label: "Placement Reports", section: "reports" },
+  ]},
+  { label: "Support", icon: "fa-headset", children: [
+    { label: "Student Queries", section: "reports" }, { label: "Mentor Queries", section: "reports" }, { label: "Support Tickets", section: "reports" },
+  ]},
+  { label: "My Profile", icon: "fa-user", href: "/profile/admin" },
 ];

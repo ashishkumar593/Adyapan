@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart"> {
   variant?: "primary" | "secondary" | "outline";
   size?: "sm" | "md" | "lg";
   children: React.ReactNode;
@@ -22,7 +22,7 @@ export default function Button({ variant = "primary", size = "md", children, cla
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.97 }}
       className={`${base} ${sizes[size]} ${variants[variant]} ${className}`}
-      {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+      {...props}
     >
       {children}
     </motion.button>

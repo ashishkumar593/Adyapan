@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Crimson_Text, Plus_Jakarta_Sans } from "next/font/google";
+import { Crimson_Text, Plus_Jakarta_Sans, Oswald } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider, AuthProvider, ToastProvider } from "@/lib/context";
 
@@ -16,6 +16,12 @@ const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
 });
 
+const oswald = Oswald({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-oswald",
+});
+
 export const metadata: Metadata = {
   title: "Adyapan AI – AI-Powered Learning & Career Platform",
   description: "Empowering students with AI-driven learning, automated coding paths, resume scoring, and career intelligence.",
@@ -23,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark" className={`${crimson.variable} ${jakarta.variable}`}>
+    <html lang="en" data-theme="dark" className={`${crimson.variable} ${jakarta.variable} ${oswald.variable}`}>
       <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
       </head>
