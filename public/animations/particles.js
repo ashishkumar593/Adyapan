@@ -13,13 +13,13 @@ class ParticleSystem {
     this.burstInterval = this.isMobile ? 12 : 5;
     this.burstFrameCount = 0;
     
-    // Antigravity themed colors
+    // Antigravity themed colors (Amber/Yellow matching student dashboard accent)
     this.colors = [
-      'rgba(59, 130, 246, 0.45)',  // Blue
-      'rgba(139, 92, 246, 0.45)', // Purple
-      'rgba(236, 72, 153, 0.45)',  // Pink
-      'rgba(245, 158, 11, 0.45)',  // Orange/Yellow
-      'rgba(6, 182, 212, 0.45)'    // Cyan
+      'rgba(245, 158, 11, 0.45)',  // Amber primary
+      'rgba(244, 147, 54, 0.45)',  // Warm orange
+      'rgba(251, 191, 36, 0.45)',  // Yellow glow
+      'rgba(255, 255, 255, 0.35)', // Soft white
+      'rgba(217, 119, 6, 0.45)'    // Dark amber
     ];
 
     this.init();
@@ -167,6 +167,7 @@ class ParticleSystem {
       this.createBurstParticle();
     }
 
+    const scrollY = window.scrollY || window.pageYOffset;
     for (let i = this.burstParticles.length - 1; i >= 0; i--) {
       const bp = this.burstParticles[i];
       bp.x += bp.vx;
