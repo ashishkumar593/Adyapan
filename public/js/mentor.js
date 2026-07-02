@@ -202,6 +202,9 @@ function mentorNav(sectionId) {
   if (sectionId === 'messages') {
     loadChatRooms();
   }
+  if (sectionId === 'profile') {
+    loadMentorProfile();
+  }
 }
 
 // Filter Chips
@@ -760,4 +763,134 @@ function appendMessageBubble(m) {
 
   container.appendChild(div);
   container.scrollTo(0, container.scrollHeight);
+}
+
+
+// ── Mentor Profile Section ────────────────────────────────────────
+function loadMentorProfile() {
+  fetch(`/api/mentor/dashboard-data?email=${encodeURIComponent(mentorEmail)}`)
+    .then(r => r.json())
+    .then(data => {
+      if (data.error) return;
+      const m = data.mentor;
+      const p = m.profile || {};
+      const s = data.stats || {};
+
+      // Hero banner
+      setMpText('mp-display-name', m.name);
+      setMpText('mp-display-email', m.email);
+      setMpText('mp-display-expertise', p.skills ? p.skills.split(',')[0].trim() : 'Mentor');
+      setMpText('mp-rank-badge', s.rank || 'Expert');
+
+      // Avatar initials
+      const avatarEl = document.getElementById('mentor-avatar-circle');
+      if (avatarEl) {
+        const parts = (m.name || 'M').trim().split(' ');
+        const initials = parts.length > 1
+          ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+          : m.name.slice(0, 2).toUpperCase();
+        avatarEl.innerHTML = `<span style="font-family:var(--font-title);font-size:1.6rem;font-weight:700;">${initials}</span>`;
+      }
+
+      // Stats
+      setMpText('mp-stat-students', s.activeStudents || 0);
+      setMpText('mp-stat-sessions', s.sessionsCompleted || 0);
+      setMpText('mp-stat-rating', (s.avgRating || 0).toFixed(1));
+      setMpText('mp-stat-hours', `${s.totalTeachingHours || 0}h`);
+
+      // Personal info
+      setMpText('mpv-name',  m.name  || '—');
+      setMpText('mpv-email', m.email || '—');
+      setMpText('mpv-rank',  s.rank  || '—');
+      setMpText('mpv-bio',   p.bio   || 'No bio added yet.');
+
+      // Expertise chips
+      const chipsEl = document.getElementById('mp-expertise-chips');
+      if (chipsEl) {
+        const skills = (p.skills || '').split(',').map(s => s.trim()).filter(Boolean);
+        if (skills.length) {
+          chipsEl.innerHTML = skills.map(sk =>
+            `<span style="padding:0.3rem 0.75rem;border-radius:20px;font-size:0.75rem;font-weight:600;background:rgba(245,158,11,0.1);color:var(--primary);border:1px solid rgba(245,158,11,0.2);">${sk}</span>`
+          ).join('');
+        } else {
+          chipsEl.innerHTML = '<span style="font-size:0.78rem;color:var(--text-muted);font-style:italic;">No expertise added yet. Go to Settings to add.</span>';
+        }
+      }
+
+      // Students list
+      const studentsEl = document.getElementById('mp-students-list');
+      if (studentsEl) {
+        const students = data.students || [];
+        if (students.length) {
+          studentsEl.innerHTML = students.map(st => `
+            <div class="compact-widget-item">
+              <div style="display:flex;align-items:center;gap:0.5rem;">
+                <div style="width:28px;height:28px;border-radius:50%;background:rgba(245,158,11,0.1);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;flex-shrink:0;">${st.studentName.slice(0,2).toUpperCase()}</div>
+                <div>
+                  <div style="font-size:0.8rem;font-weight:700;color:var(--text-primary);">${st.studentName}</div>
+                  <div style="font-size:0.68rem;color:var(--text-muted);">${st.goal}</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.5rem;">
+                <div style="width:50px;height:5px;border-radius:3px;background:var(--border-color);overflow:hidden;"><div style="height:100%;width:${st.progress}%;background:var(--primary);border-radius:3px;"></div></div>
+                <strong style="font-size:0.75rem;">${st.progress}%</strong>
+              </div>
+            </div>`).join('');
+        } else {
+          studentsEl.innerHTML = '<span style="font-size:0.78rem;color:var(--text-muted);">No students assigned yet.</span>';
+        }
+      }
+
+      // Reviews list
+      const reviewsEl = document.getElementById('mp-reviews-list');
+      if (reviewsEl) {
+        const reviews = (data.reviews || []).slice(0, 4);
+        if (reviews.length) {
+          reviewsEl.innerHTML = reviews.map(r => {
+            const stars = Array.from({length:5}, (_,i) =>
+              `<i class="${i < r.rating ? 'fas' : 'far'} fa-star" style="color:#f59e0b;font-size:0.7rem;"></i>`
+            ).join('');
+            return `
+              <div style="padding:0.75rem;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid var(--border-color);">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;">
+                  <span style="font-size:0.8rem;font-weight:700;color:var(--text-primary);">${r.studentName}</span>
+                  <span style="font-size:0.65rem;color:var(--text-muted);">${r.date}</span>
+                </div>
+                <div style="display:flex;gap:2px;margin-bottom:0.3rem;">${stars}</div>
+                <p style="font-size:0.76rem;color:var(--text-secondary);line-height:1.4;margin:0;">"${r.comment}"</p>
+              </div>`;
+          }).join('');
+        } else {
+          reviewsEl.innerHTML = '<span style="font-size:0.78rem;color:var(--text-muted);">No reviews yet.</span>';
+        }
+      }
+
+      // Sessions list
+      const sessionsEl = document.getElementById('mp-sessions-list');
+      if (sessionsEl) {
+        const sessions = (data.sessions || []).slice(0, 4);
+        if (sessions.length) {
+          sessionsEl.innerHTML = sessions.map(s => {
+            const d = new Date(s.dateTime);
+            const label = d.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'});
+            return `
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0.75rem;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid var(--border-color);">
+                <div>
+                  <div style="font-size:0.8rem;font-weight:700;color:var(--text-primary);">${s.topic}</div>
+                  <div style="font-size:0.7rem;color:var(--text-muted);">with ${s.studentName}</div>
+                </div>
+                <div style="font-size:0.75rem;font-weight:600;color:var(--primary);text-align:right;">${label}</div>
+              </div>`;
+          }).join('');
+        } else {
+          sessionsEl.innerHTML = '<span style="font-size:0.78rem;color:var(--text-muted);">No upcoming sessions.</span>';
+        }
+      }
+    })
+    .catch(err => console.error('Profile load error:', err));
+}
+
+function setMpText(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val;
 }

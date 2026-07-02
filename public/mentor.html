@@ -81,9 +81,11 @@
             </div>
             <div class="dropdown-divider"></div>
             <ul class="dropdown-menu-list">
+              <li><a href="#" onclick="mentorNav('profile');return false;"><i class="fas fa-user"></i> My Profile</a></li>
+              <li class="menu-divider"></li>
               <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
               <li class="menu-divider"></li>
-              <li><a href="/"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+              <li><a href="/" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
           </div>
         </div>
@@ -523,6 +525,144 @@
             </div>
           </div>
         </div>
+      </section>
+
+      <!-- ===== MENTOR PROFILE ===== -->
+      <section id="profile" class="mentor-section">
+
+        <!-- Profile Hero Banner -->
+        <div class="profile-hero-banner glass" style="display:flex;justify-content:space-between;align-items:center;gap:1.5rem;padding:1.75rem 2rem;margin-bottom:1.25rem;flex-wrap:wrap;background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(139,92,246,0.08));border:1px solid rgba(245,158,11,0.15);border-radius:18px;">
+          <div style="display:flex;align-items:center;gap:1.5rem;">
+            <!-- Avatar -->
+            <div style="position:relative;width:90px;height:90px;flex-shrink:0;">
+              <div id="mentor-avatar-circle" style="position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(139,92,246,0.15));border:2px solid rgba(245,158,11,0.35);display:flex;align-items:center;justify-content:center;font-family:var(--font-title);font-size:2rem;font-weight:700;color:var(--primary);">
+                <i class="fas fa-user"></i>
+              </div>
+            </div>
+            <div>
+              <h1 id="mp-display-name" style="font-family:var(--font-title);font-size:1.9rem;font-weight:700;margin-bottom:0.35rem;">Loading...</h1>
+              <div style="display:flex;flex-wrap:wrap;gap:0.65rem;font-size:0.78rem;color:var(--text-secondary);margin-bottom:0.5rem;">
+                <span id="mp-display-email"><i class="fas fa-envelope"></i> —</span>
+                <span id="mp-display-expertise"><i class="fas fa-tools"></i> —</span>
+              </div>
+              <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                <span style="font-size:0.7rem;font-weight:700;padding:0.2rem 0.7rem;border-radius:20px;background:rgba(245,158,11,0.12);color:var(--primary);border:1px solid rgba(245,158,11,0.25);display:inline-flex;align-items:center;gap:0.3rem;"><i class="fas fa-graduation-cap"></i> Mentor</span>
+                <span id="mp-rank-badge" style="font-size:0.7rem;font-weight:700;padding:0.2rem 0.7rem;border-radius:20px;background:rgba(16,185,129,0.12);color:#10b981;border:1px solid rgba(16,185,129,0.25);display:inline-flex;align-items:center;gap:0.3rem;"><i class="fas fa-trophy"></i> Expert</span>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.85rem;">
+            <button onclick="mentorNav('settings')" style="padding:0.55rem 1.2rem;border-radius:10px;background:var(--primary);color:#000;border:none;font-size:0.8rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:0.4rem;transition:var(--transition);" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+              <i class="fas fa-pen"></i> Edit Profile
+            </button>
+          </div>
+        </div>
+
+        <!-- Profile Stats Row -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.85rem;margin-bottom:1.25rem;">
+          <div class="widget-card glass">
+            <div class="widget-header">
+              <div class="widget-icon" style="background:rgba(245,158,11,0.12);color:#f59e0b;"><i class="fas fa-users"></i></div>
+              <span class="widget-trend trend-up">Active</span>
+            </div>
+            <div class="widget-value" id="mp-stat-students">0</div>
+            <div class="widget-label">Students Assigned</div>
+          </div>
+          <div class="widget-card glass">
+            <div class="widget-header">
+              <div class="widget-icon" style="background:rgba(16,185,129,0.12);color:#10b981;"><i class="fas fa-check-circle"></i></div>
+              <span class="widget-trend">All Time</span>
+            </div>
+            <div class="widget-value" id="mp-stat-sessions">0</div>
+            <div class="widget-label">Sessions Completed</div>
+          </div>
+          <div class="widget-card glass">
+            <div class="widget-header">
+              <div class="widget-icon" style="background:rgba(59,130,246,0.12);color:#3b82f6;"><i class="fas fa-star"></i></div>
+              <span class="widget-trend">Avg</span>
+            </div>
+            <div class="widget-value" id="mp-stat-rating">0.0</div>
+            <div class="widget-label">Average Rating</div>
+          </div>
+          <div class="widget-card glass">
+            <div class="widget-header">
+              <div class="widget-icon" style="background:rgba(139,92,246,0.12);color:#8b5cf6;"><i class="fas fa-clock"></i></div>
+              <span class="widget-trend">Total</span>
+            </div>
+            <div class="widget-value" id="mp-stat-hours">0h</div>
+            <div class="widget-label">Teaching Hours</div>
+          </div>
+        </div>
+
+        <!-- Two-column profile content -->
+        <div class="panel-grid">
+
+          <!-- LEFT: Personal & Professional Info -->
+          <div style="display:flex;flex-direction:column;gap:1.25rem;">
+
+            <!-- Personal Info -->
+            <div class="panel-card glass">
+              <h2 class="panel-title"><i class="fas fa-id-card" style="color:var(--primary);margin-right:0.5rem;"></i>Personal Information</h2>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
+                <div style="padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;flex-direction:column;gap:0.2rem;">
+                  <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);">Full Name</div>
+                  <div id="mpv-name" style="font-size:0.85rem;color:var(--text-primary);font-weight:500;">—</div>
+                </div>
+                <div style="padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;flex-direction:column;gap:0.2rem;">
+                  <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);">Email Address</div>
+                  <div id="mpv-email" style="font-size:0.85rem;color:var(--text-primary);font-weight:500;word-break:break-all;">—</div>
+                </div>
+                <div style="padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;flex-direction:column;gap:0.2rem;">
+                  <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);">Mentor Rank</div>
+                  <div id="mpv-rank" style="font-size:0.85rem;color:#10b981;font-weight:700;">—</div>
+                </div>
+                <div style="padding:0.7rem 0;grid-column:span 2;display:flex;flex-direction:column;gap:0.2rem;">
+                  <div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);">Bio / Introduction</div>
+                  <div id="mpv-bio" style="font-size:0.85rem;color:var(--text-secondary);font-weight:500;line-height:1.5;">—</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Expertise / Skills -->
+            <div class="panel-card glass">
+              <h2 class="panel-title"><i class="fas fa-tools" style="color:#06b6d4;margin-right:0.5rem;"></i>Areas of Expertise</h2>
+              <div id="mp-expertise-chips" style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+                <span style="font-size:0.78rem;color:var(--text-muted);font-style:italic;">No expertise added yet. Go to Settings to add.</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT: Students & Recent Reviews -->
+          <div style="display:flex;flex-direction:column;gap:1.25rem;">
+
+            <!-- Assigned Students -->
+            <div class="panel-card glass">
+              <h2 class="panel-title"><i class="fas fa-user-graduate" style="color:#8b5cf6;margin-right:0.5rem;"></i>Assigned Students</h2>
+              <div id="mp-students-list" class="compact-widget-list">
+                <span style="font-size:0.78rem;color:var(--text-muted);">No students assigned yet.</span>
+              </div>
+            </div>
+
+            <!-- Recent Reviews -->
+            <div class="panel-card glass">
+              <h2 class="panel-title"><i class="fas fa-star" style="color:#f59e0b;margin-right:0.5rem;"></i>Recent Reviews</h2>
+              <div id="mp-reviews-list" style="display:flex;flex-direction:column;gap:0.75rem;">
+                <span style="font-size:0.78rem;color:var(--text-muted);">No reviews yet.</span>
+              </div>
+            </div>
+
+            <!-- Upcoming Sessions -->
+            <div class="panel-card glass">
+              <h2 class="panel-title"><i class="fas fa-calendar-alt" style="color:#3b82f6;margin-right:0.5rem;"></i>Upcoming Sessions</h2>
+              <div id="mp-sessions-list" style="display:flex;flex-direction:column;gap:0.6rem;">
+                <span style="font-size:0.78rem;color:var(--text-muted);">No upcoming sessions.</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </section>
 
     </main>
